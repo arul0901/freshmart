@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FreshMart — Premium Grocery Delivery</title>
+    <meta name="description" content="Premium farm-fresh groceries, dairy, and daily essentials delivered carefully to your door." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <style>
+    #initial-preloader {
+      position: fixed; inset: 0; background: #fff; z-index: 99999;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-family: 'Roboto Condensed', system-ui, sans-serif;
+    }
+    .preloader-logo {
+      width: 64px; height: 64px; background: #0EB48F; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px; box-shadow: 0 12px 24px rgba(14, 180, 143, 0.25);
+    }
+    .preloader-text { font-weight: 900; font-size: 24px; color: #022c22; letter-spacing: -0.04em; text-transform: uppercase; }
+    .preloader-dot { color: #0EB48F; }
+    .loading-dot { animation: dot-blink 1.4s infinite; }
+    @keyframes dot-blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+  </style>
+  <body>
+    <div id="root">
+      <div id="initial-preloader">
+        <div class="preloader-logo">
+          <svg width="34" height="34" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 2L13 8C8 7 4 10 4 15C4 20 8 23 13 23C13 26 15 29 16 30C17 29 19 26 19 23C24 23 28 20 28 15C28 10 24 7 19 8L16 2Z" fill="white"/>
+          </svg>
+        </div>
+        <div class="preloader-text">Fresh<span class="preloader-dot">Mart</span><span class="loading-dot">.</span></div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

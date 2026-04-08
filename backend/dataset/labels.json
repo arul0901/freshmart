@@ -1,0 +1,46 @@
+{
+  "0": {
+    "id": 1,
+    "name": "Organic Alphonso Mangoes"
+  },
+  "1": {
+    "id": 6,
+    "name": "Apple"
+  },
+  "2": {
+    "id": 8,
+    "name": "Pomegranate"
+  },
+  "3": {
+    "id": 9,
+    "name": "Orange"
+  },
+  "4": {
+    "id": 5,
+    "name": "Lay's Classic Salted"
+  },
+  "5": {
+    "id": 10,
+    "name": "Campa cola"
+  },
+  "6": {
+    "id": 7,
+    "name": "Curd"
+  },
+  "7": {
+    "id": 4,
+    "name": "Amul Gold Full Cream Milk"
+  },
+  "8": {
+    "id": 3,
+    "name": "Broccoli Crown"
+  },
+  "9": {
+    "id": 2,
+    "name": "Fresh Strawberries"
+  },
+  "10": {
+    "id": 11,
+    "name": "Pringles Red"
+  }
+}

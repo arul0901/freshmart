@@ -1,0 +1,6 @@
+[
+  {"id":1,"code":"FRESH20","discount":20,"type":"percent","minOrder":0,"uses":142,"maxUses":500,"active":true},
+  {"id":2,"code":"SAVE10","discount":10,"type":"percent","minOrder":200,"uses":89,"maxUses":200,"active":true},
+  {"id":3,"code":"WELCOME","discount":50,"type":"flat","minOrder":299,"uses":23,"maxUses":100,"active":true},
+  {"id":4,"code":"FREESHIP","discount":40,"type":"flat","minOrder":299,"uses":67,"maxUses":300,"active":true}
+]

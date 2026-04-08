@@ -1,0 +1,9 @@
+[
+  {"id":1,"name":"Priya Sharma","email":"priya@email.com","phone":"+91 98765 43210","orders":12,"totalSpent":14280,"tier":"Gold","joined":"2024-06-15","lastOrder":"2026-03-26"},
+  {"id":2,"name":"Rahul Mehta","email":"rahul@email.com","phone":"+91 87654 32109","orders":8,"totalSpent":9640,"tier":"Silver","joined":"2024-09-20","lastOrder":"2026-03-26"},
+  {"id":3,"name":"Kavya Nair","email":"kavya@email.com","phone":"+91 76543 21098","orders":23,"totalSpent":31450,"tier":"Platinum","joined":"2024-01-10","lastOrder":"2026-03-26"},
+  {"id":4,"name":"Arjun Reddy","email":"arjun@email.com","phone":"+91 65432 10987","orders":5,"totalSpent":4820,"tier":"Bronze","joined":"2025-02-01","lastOrder":"2026-03-25"},
+  {"id":5,"name":"Sunita Patel","email":"sunita@email.com","phone":"+91 54321 09876","orders":15,"totalSpent":19300,"tier":"Gold","joined":"2024-04-22","lastOrder":"2026-03-25"},
+  {"id":6,"name":"Vikram Singh","email":"vikram@email.com","phone":"+91 43210 98765","orders":3,"totalSpent":2760,"tier":"Bronze","joined":"2026-01-15","lastOrder":"2026-03-25"},
+  {"id":7,"name":"Meera Joshi","email":"meera@email.com","phone":"+91 32109 87654","orders":19,"totalSpent":25180,"tier":"Platinum","joined":"2023-11-08","lastOrder":"2026-03-24"}
+]
