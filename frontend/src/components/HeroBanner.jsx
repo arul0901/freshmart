@@ -16,17 +16,7 @@ const HeroBanner = ({ onShop, onSignup }) => {
   return (
     <div 
       ref={ref} 
-      style={{ 
-        position: 'relative', 
-        height: '85vh', 
-        minHeight: '600px', 
-        background: 'var(--primary-900)', 
-        overflow: 'hidden', 
-        display: 'flex', 
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center'
-      }}
+      className="hero-banner"
     >
       {/* Background Shader Layer */}
       <motion.div 
@@ -54,12 +44,10 @@ const HeroBanner = ({ onShop, onSignup }) => {
 
       {/* Content Layer with Parallax */}
       <motion.div 
+        className="hero-content"
         style={{ 
-          zIndex: 10, 
           y: yText, 
           opacity, 
-          maxWidth: '900px', 
-          padding: '0 40px' 
         }}
       >
         <motion.div
@@ -102,13 +90,14 @@ const HeroBanner = ({ onShop, onSignup }) => {
           }}>
             Hand-picked organic produce, farm-to-table freshness, and 10-minute delivery. Why shop anywhere else?
           </p>
-          <div style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
+          <div className="hero-actions">
             <motion.button 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={onShop}
+              className="btn btn-primary"
               style={{ 
-                padding: '18px 40px', fontSize: '1.1rem', background: '#fff', 
+                padding: '18px 40px', fontSize: 'var(--text-md)', background: '#fff', 
                 color: 'var(--primary-900)', borderRadius: '16px', border: 'none', 
                 fontWeight: 800, cursor: 'pointer', boxShadow: '0 10px 40px rgba(0,0,0,0.2)' 
               }}
@@ -119,8 +108,9 @@ const HeroBanner = ({ onShop, onSignup }) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={onSignup}
+              className="btn btn-outline"
               style={{ 
-                padding: '18px 40px', fontSize: '1.1rem', background: 'transparent', 
+                padding: '18px 40px', fontSize: 'var(--text-md)', background: 'transparent', 
                 color: '#fff', borderRadius: '16px', border: '2px solid rgba(255,255,255,0.2)', 
                 fontWeight: 700, cursor: 'pointer', backdropFilter: 'blur(10px)' 
               }}

@@ -63,20 +63,15 @@ export default function Home({ onAuthOpen }) {
 
       <div style={{ position: 'relative', marginTop: '-50px', zIndex: 20 }}>
         <div className="container">
-          <div className="glass" style={{ 
-            display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', padding: '40px 0', 
-            borderRadius: '24px', background: 'var(--surface)', border: '1px solid var(--border)' 
-          }}>
+          <div className="glass features-glass">
+            {/* Features loop */}
             {[
               { icon: <Truck size={24} />, val: 'Express Delivery', lbl: 'Within 2 hours' },
               { icon: <ShieldCheck size={24} />, val: 'Pure Assurance', lbl: 'Organic certified' },
               { icon: <Zap size={24} />, val: 'Fast Checkout', lbl: 'One-click pay' },
               { icon: <Star size={24} />, val: 'Top Rated', lbl: '4.9/5 TrustScore' }
             ].map((t, i) => (
-              <div key={i} style={{ 
-                borderRight: i < 3 ? '1px solid var(--border)' : 'none', 
-                padding: '0 40px', display: 'flex', alignItems: 'center', gap: '20px' 
-              }}>
+              <div key={i} className="feature-item">
                 <div style={{ background: 'var(--primary-100)', color: 'var(--primary)', padding: 14, borderRadius: 16 }}>{t.icon}</div>
                 <div>
                   <div style={{ fontWeight: 800, fontSize: '1rem', color: 'var(--ink)' }}>{t.val}</div>
@@ -99,7 +94,7 @@ export default function Home({ onAuthOpen }) {
               View All
             </button>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', gap: 24 }}>
+          <div className="cats-grid">
             {cats.map((c, i) => (
               <motion.div 
                 key={c.cat} 
@@ -185,11 +180,7 @@ export default function Home({ onAuthOpen }) {
           <motion.div 
             whileInView={{ y: [40, 0], opacity: [0, 1] }} 
             viewport={{ once: true }}
-            style={{ 
-              background: 'var(--primary-900)', borderRadius: '40px', padding: '80px', 
-              display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: 60, 
-              alignItems: 'center', color: '#fff', position: 'relative', overflow: 'hidden' 
-            }}
+            className="luxury-banner"
           >
             <div style={{ 
               position: 'absolute', top: '-10%', right: '-10%', width: '40%', height: '100%', 
@@ -199,7 +190,7 @@ export default function Home({ onAuthOpen }) {
               <div style={{ color: 'var(--accent)', fontWeight: 800, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: 24 }}>
                 Exclusive Membership
               </div>
-              <h2 style={{ fontSize: 'clamp(2.5rem, 4vw, 4rem)', fontWeight: 800, marginBottom: 24, lineHeight: 1.1 }}>
+              <h2 style={{ fontSize: 'clamp(2.5rem, 4vw, 4rem)', fontWeight: 800, marginBottom: 24, lineHeight: 1.1, color: '#fff' }}>
                 Smarter Grocery <br/> Shopping is Here
               </h2>
               <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '1.2rem', marginBottom: 48, maxWidth: '500px', lineHeight: 1.7 }}>
@@ -214,7 +205,7 @@ export default function Home({ onAuthOpen }) {
                 </button>
               </div>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, zIndex: 1 }}>
+              <div className="luxury-stats">
               {[
                 { icon: <Leaf size={32} />, val: '5k+', lbl: 'Organic Items' },
                 { icon: <Zap size={32} />, val: '10m', lbl: 'Avg Delivery' },

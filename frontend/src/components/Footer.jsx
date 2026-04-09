@@ -5,9 +5,9 @@ import { motion } from 'framer-motion'
 export default function Footer() {
   const navigate = useNavigate()
   return (
-    <footer className="footer" style={{ borderTop: '1px solid var(--border)', background: 'var(--primary-900)', color: 'rgba(255,255,255,0.6)', padding: '80px 0 0' }}>
+    <footer className="footer">
       <div className="container">
-        <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 2fr', gap: 60, marginBottom: 80 }}>
+        <div className="footer-grid">
           <div className="footer-col">
             <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', marginBottom: 24 }}>
               Fresh<span style={{ color: 'var(--primary-100)' }}>Mart</span>
@@ -59,8 +59,8 @@ export default function Footer() {
           <div className="footer-col">
             <h4 style={{ color: '#fff', fontSize: '1rem', fontWeight: 700, marginBottom: 24, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Newsletter</h4>
             <p style={{ fontSize: '0.85rem', marginBottom: 20 }}>Stay updated with fresh arrival and exclusive offers.</p>
-            <div style={{ position: 'relative', marginBottom: 40 }}>
-              <Mail size={18} style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.4)' }} />
+            <div className="footer-newsletter-wrap">
+              <Mail size={18} style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.4)', zIndex: 5 }} />
               <input 
                 placeholder="Enter your email" 
                 style={{ 
@@ -83,38 +83,21 @@ export default function Footer() {
               </motion.button>
             </div>
             
-            <h4 style={{ color: '#fff', fontSize: '0.85rem', fontWeight: 700, marginBottom: 16, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Download Our Experience</h4>
-            <div style={{ display: 'flex', gap: 12 }}>
-              <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '12px', padding: '10px 16px', display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', border: '1px solid rgba(255,255,255,0.1)' }}>
-                <AppStore size={20} />
-                <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontSize: '0.6rem', textTransform: 'uppercase', fontWeight: 700, opacity: 0.6 }}>Download on</div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 800 }}>App Store</div>
-                </div>
-              </div>
-              <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '12px', padding: '10px 16px', display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', border: '1px solid rgba(255,255,255,0.1)' }}>
-                <PlayStore size={20} />
-                <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontSize: '0.6rem', textTransform: 'uppercase', fontWeight: 700, opacity: 0.6 }}>Get it on</div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 800 }}>Play Store</div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
 
-      <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', padding: '32px 0' }}>
-        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="footer-bottom">
+        <div className="container">
           <div style={{ fontSize: '0.85rem' }}>
-            © 2026 FreshMart Premium Organics. All rights reserved.
+            © {new Date().getFullYear()} FreshMart Premium Organics. All rights reserved.
           </div>
-          <div style={{ display: 'flex', gap: 12 }}>
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
             {['UPI', 'VISA', 'MASTERCARD', 'AMEX', 'COD'].map(p => (
               <span key={p} style={{ fontSize: '0.65rem', fontWeight: 800, padding: '4px 10px', borderRadius: '6px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}>{p}</span>
             ))}
           </div>
-          <div style={{ display: 'flex', gap: 24, fontSize: '0.85rem' }}>
+          <div style={{ display: 'flex', gap: 24, fontSize: '0.85rem', flexWrap: 'wrap', justifyContent: 'center' }}>
             <span style={{ cursor: 'pointer' }}>Privacy Policy</span>
             <span style={{ cursor: 'pointer' }}>Terms of Service</span>
           </div>
@@ -122,12 +105,6 @@ export default function Footer() {
       </div>
       <style>{`
         .footer-link-item:hover { color: #fff; transform: translateX(4px); }
-        @media (max-width: 1024px) {
-          .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 40px !important; }
-        }
-        @media (max-width: 640px) {
-          .footer-grid { grid-template-columns: 1fr !important; }
-        }
       `}</style>
     </footer>
   )

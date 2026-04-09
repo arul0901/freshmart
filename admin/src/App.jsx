@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom'
 import { NotifProvider } from './context/NotifContext'
+import { AdminAuthProvider, useAdminAuth } from './context/AdminAuthContext'
+import PrivateRoute from './components/PrivateRoute'
 import Dashboard from './pages/Dashboard'
 import Products from './pages/Products'
 import Orders from './pages/Orders'
@@ -9,9 +11,12 @@ import Coupons from './pages/Coupons'
 import Analytics from './pages/Analytics'
 import FlashDeals from './pages/FlashDeals'
 import Settings from './pages/Settings'
+import AdminLogin from './pages/AdminLogin'
 
 function Sidebar() {
   const { pathname } = useLocation()
+  const { logout } = useAdminAuth()
+
   return (
     <aside className="admin-sidebar">
       <div className="admin-logo">Fresh<span>Mart</span> Admin</div>
@@ -19,7 +24,7 @@ function Sidebar() {
         <div className="admin-nav-section">Main Menu</div>
         <Link to="/" className={`admin-nav-item ${pathname === '/' ? 'active' : ''}`}><span className="icon">📊</span>Dashboard</Link>
         <Link to="/products" className={`admin-nav-item ${pathname.includes('/products') ? 'active' : ''}`}><span className="icon">🛒</span>Products</Link>
-        <Link to="/orders" className={`admin-nav-item ${pathname.includes('/orders') ? 'active' : ''}`}><span className="icon">📦</span>Orders</Link>
+        <Link to="/orders" className={`admin-nav-item ${pathname.includes('/orders') ? 'active' : ''}`}><span className="icon"> packaging</span>Orders</Link>
         <Link to="/customers" className={`admin-nav-item ${pathname.includes('/customers') ? 'active' : ''}`}><span className="icon">👥</span>Customers</Link>
         
         <div className="admin-nav-section" style={{ marginTop: 20 }}>Store Management</div>
@@ -30,6 +35,9 @@ function Sidebar() {
       </div>
       <div style={{ padding: '0 0' }}>
         <Link to="/settings" className={`admin-nav-item ${pathname.includes('/settings') ? 'active' : ''}`}><span className="icon">⚙️</span>Settings</Link>
+        <button className="admin-nav-item" onClick={logout} style={{ color: 'var(--coral)', marginTop: 8 }}>
+          <span className="icon">🚪</span>Sign Out
+        </button>
       </div>
     </aside>
   )
@@ -37,6 +45,8 @@ function Sidebar() {
 
 function Layout({ children }) {
   const { pathname } = useLocation()
+  const { admin } = useAdminAuth()
+  
   const titles = {
     '/': 'Overview Dashboard',
     '/products': 'Product Management',
@@ -48,6 +58,7 @@ function Layout({ children }) {
     '/analytics': 'Business Analytics',
     '/settings': 'Store Settings'
   }
+
   return (
     <div className="admin-shell">
       <Sidebar />
@@ -57,8 +68,13 @@ function Layout({ children }) {
           <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
             <span style={{ fontSize: '1.2rem', cursor: 'pointer' }}>🔔</span>
             <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-              <div style={{ width: 36, height: 36, borderRadius: '99px', background: 'var(--sage)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 600 }}>A</div>
-              <div><div style={{ fontSize: '.85rem', fontWeight: 700 }}>Admin</div><div style={{ fontSize: '.72rem', color: 'var(--muted)' }}>Store Manager</div></div>
+              <div style={{ width: 36, height: 36, borderRadius: '99px', background: 'var(--sage)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 600 }}>
+                {admin?.name?.[0] || 'A'}
+              </div>
+              <div className="hide-mob">
+                <div style={{ fontSize: '.85rem', fontWeight: 700 }}>{admin?.name || 'Admin'}</div>
+                <div style={{ fontSize: '.72rem', color: 'var(--muted)' }}>Store Manager</div>
+              </div>
             </div>
           </div>
         </header>
@@ -68,24 +84,39 @@ function Layout({ children }) {
   )
 }
 
+function AdminApp() {
+  return (
+    <Routes>
+      <Route path="/login" element={<AdminLogin />} />
+      <Route element={<PrivateRoute />}>
+        <Route path="/*" element={
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/orders" element={<Orders />} />
+              <Route path="/customers" element={<Customers />} />
+              <Route path="/inventory" element={<Inventory />} />
+              <Route path="/flash-deals" element={<FlashDeals />} />
+              <Route path="/coupons" element={<Coupons />} />
+              <Route path="/analytics" element={<Analytics />} />
+              <Route path="/settings" element={<Settings />} />
+            </Routes>
+          </Layout>
+        } />
+      </Route>
+    </Routes>
+  )
+}
+
 export default function App() {
   return (
     <NotifProvider>
-      <BrowserRouter>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/orders" element={<Orders />} />
-            <Route path="/customers" element={<Customers />} />
-            <Route path="/inventory" element={<Inventory />} />
-            <Route path="/flash-deals" element={<FlashDeals />} />
-            <Route path="/coupons" element={<Coupons />} />
-            <Route path="/analytics" element={<Analytics />} />
-            <Route path="/settings" element={<Settings />} />
-          </Routes>
-        </Layout>
-      </BrowserRouter>
+      <AdminAuthProvider>
+        <BrowserRouter>
+          <AdminApp />
+        </BrowserRouter>
+      </AdminAuthProvider>
     </NotifProvider>
   )
 }

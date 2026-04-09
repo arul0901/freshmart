@@ -58,17 +58,25 @@
   --r-2xl : 24px;
   --r-full: 9999px;
 
-  /* ── Typography ── */
+  /* ── Typography (Responsive with clamp) ── */
   --font: 'Roboto Condensed', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --text-xs  : 0.70rem;
   --text-sm  : 0.80rem;
-  --text-base: 0.95rem;
-  --text-md  : 1.05rem;
-  --text-lg  : 1.20rem;
-  --text-xl  : 1.50rem;
-  --text-2xl : 2.00rem;
-  --text-3xl : 2.50rem;
-  --text-4xl : 3.00rem;
+  --text-base: clamp(0.85rem, 1vw + 0.5rem, 0.95rem);
+  --text-md  : clamp(0.95rem, 1.2vw + 0.6rem, 1.05rem);
+  --text-lg  : clamp(1.10rem, 2vw + 0.7rem, 1.20rem);
+  --text-xl  : clamp(1.30rem, 3vw + 0.8rem, 1.50rem);
+  --text-2xl : clamp(1.60rem, 4vw + 1rem, 2.00rem);
+  --text-3xl : clamp(2.00rem, 6vw + 1.2rem, 2.50rem);
+  --text-4xl : clamp(2.50rem, 8vw + 1.5rem, 3.00rem);
+
+  /* ── Breakpoints ── */
+  --bp-xs: 320px;
+  --bp-sm: 375px;
+  --bp-md: 425px;
+  --bp-lg: 768px;
+  --bp-xl: 1024px;
+  --bp-2xl: 1440px;
 
   /* ── Motion ── */
   --ease: cubic-bezier(0.4, 0, 0.2, 1);

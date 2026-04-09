@@ -90,26 +90,13 @@ export default function ProductCard({ product }) {
       onClick={() => navigate(`/products/${product.id}`)}
       style={{ position: 'relative' }}
     >
-      <div className="product-img-wrap" style={{ 
-        position: 'relative', 
-        background: 'var(--canvas)', 
-        aspectRatio: '1/1', 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'center',
-        padding: 'var(--sp-6)'
-      }}>
+      <div className="product-img-wrap">
         <AnimatePresence>
           {showBurst && <HeartBurst x="85%" y="15%" />}
         </AnimatePresence>
 
         {offPct > 0 && (
-          <span style={{ 
-            position: 'absolute', top: 14, left: 14, zIndex: 2, 
-            background: 'var(--error)', color: '#fff', padding: '5px 12px', 
-            borderRadius: 'var(--r-full)', fontSize: 'var(--text-xs)', fontWeight: 800,
-            boxShadow: '0 4px 12px rgba(239, 68, 68, 0.25)'
-          }}>
+          <span className="discount-badge">
             {offPct}% OFF
           </span>
         )}
@@ -119,16 +106,7 @@ export default function ProductCard({ product }) {
           onClick={handleWish}
           className="wishlist-btn"
           style={{ 
-            position: 'absolute', top: 12, right: 12, zIndex: 2, 
-            width: 38, height: 38, borderRadius: 'var(--r-md)',
-            background: 'var(--surface)', border: '1px solid var(--border)', 
             color: (inWish && user) ? 'var(--error)' : 'var(--muted)',
-            boxShadow: 'var(--sh-sm)',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            transition: 'color 0.2s'
           }}
         >
           <Heart 
@@ -142,8 +120,8 @@ export default function ProductCard({ product }) {
           src={product.image} 
           alt={product.name} 
           loading="lazy"
-          style={{ width: '85%', height: '85%', objectFit: 'contain', transition: 'transform 0.4s var(--ease)' }} 
           className="product-img"
+          style={{ width: '85%', height: '85%', objectFit: 'contain', transition: 'transform 0.4s var(--ease)' }} 
         />
       </div>
       
@@ -174,14 +152,7 @@ export default function ProductCard({ product }) {
           </div>
         </div>
         
-        <h3 style={{ 
-          fontSize: 'var(--text-md)', 
-          fontWeight: 900, 
-          margin: '0 0 6px', 
-          color: 'var(--ink)',
-          lineHeight: 1.2,
-          letterSpacing: '-0.02em'
-        }}>
+        <h3 className="product-name">
           {product.name}
         </h3>
         
@@ -202,13 +173,7 @@ export default function ProductCard({ product }) {
         
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div>
-            <div style={{ 
-              fontSize: '1.4rem', 
-              fontWeight: 900, 
-              color: 'var(--ink)',
-              letterSpacing: '-0.01em',
-              lineHeight: 1
-            }}>
+            <div className="product-price">
               ₹{product.price}
             </div>
             <div style={{ fontSize: 'var(--text-xs)', color: 'var(--muted)', fontWeight: 600, marginTop: 4 }}>

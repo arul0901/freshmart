@@ -44,8 +44,8 @@ export default function ProductDetail() {
   }
 
   if (loading || !product) return (
-    <div className="container" style={{ padding: '40px 0' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '60px' }}>
+    <div className="container" style={{ padding: 'var(--sp-10) 0' }}>
+      <div className="detail-layout">
         <Skeleton height="500px" borderRadius="32px" />
         <div>
           <Skeleton height="40px" width="60%" borderRadius="10px" style={{ marginBottom: '20px' }} />
@@ -64,7 +64,7 @@ export default function ProductDetail() {
       className="container" 
       style={{ padding: '40px 16px' }}
     >
-      <div className="breadcrumb" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: 'var(--muted)', marginBottom: '32px' }}>
+      <div className="breadcrumb" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: 'var(--muted)', marginBottom: '32px' }}>
         <button onClick={() => navigate('/')} style={{ background: 'none', border: 'none', color: 'var(--muted)', cursor: 'pointer' }}>Home</button>
         <ChevronRight size={14} />
         <button onClick={() => navigate('/products')} style={{ background: 'none', border: 'none', color: 'var(--muted)', cursor: 'pointer' }}>Products</button>
@@ -72,18 +72,12 @@ export default function ProductDetail() {
         <span style={{ color: 'var(--ink)', fontWeight: 600 }}>{product.name}</span>
       </div>
 
-      <div className="detail-layout" style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '80px', alignItems: 'start' }}>
+      <div className="detail-layout">
         {/* Left: Gallery Showcase */}
         <div className="detail-gallery">
           <motion.div 
             whileHover={{ scale: 1.02 }}
             className="main-img-wrap" 
-            style={{ 
-              background: 'var(--pure)', borderRadius: '40px', padding: '60px', 
-              boxShadow: 'var(--sh-lg)', border: '1px solid var(--border-light)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              position: 'relative', overflow: 'hidden'
-            }}
           >
             <div style={{ position: 'absolute', top: '20%', left: '20%', width: '60%', height: '60%', background: 'var(--primary-100)', filter: 'blur(100px)', opacity: 0.3, zIndex: 0 }} />
             <img src={product.image} alt={product.name} style={{ maxWidth: '80%', maxHeight: '400px', objectFit: 'contain', position: 'relative', zIndex: 1 }} />
@@ -117,7 +111,7 @@ export default function ProductDetail() {
             </div>
           </div>
 
-          <h1 style={{ fontSize: '3.5rem', fontWeight: 900, marginBottom: '12px', lineHeight: 1.1, fontFamily: 'var(--font-serif)', color: 'var(--ink)' }}>{product.name}</h1>
+          <h1 className="detail-title">{product.name}</h1>
           <p style={{ fontSize: '1.1rem', color: 'var(--muted)', marginBottom: '32px', lineHeight: 1.6 }}>The finest {product.name.toLowerCase()} selected from organic farms. Guaranteed {product.weight} of pure freshness delivered to your door.</p>
 
           <div style={{ background: 'var(--canvas)', borderRadius: '24px', padding: '32px', marginBottom: '40px', border: '1.5px solid var(--border-light)' }}>
@@ -129,8 +123,8 @@ export default function ProductDetail() {
             <div style={{ fontSize: '0.85rem', color: 'var(--muted)', fontWeight: 500 }}>Inclusive of all taxes • <span style={{ color: 'var(--primary)', fontWeight: 700 }}>Free delivery</span></div>
           </div>
 
-          <div style={{ display: 'flex', gap: '20px', alignItems: 'center', marginBottom: '40px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', background: '#fff', borderRadius: '16px', padding: '6px', border: '1.5px solid var(--border)', boxShadow: 'var(--sh-sm)' }}>
+          <div style={{ display: 'flex', gap: '20px', alignItems: 'center', marginBottom: '40px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', background: '#fff', borderRadius: '16px', padding: '6px', border: '1.5px solid var(--border)', boxShadow: 'var(--sh-sm)', minWidth: '130px', justifyContent: 'center' }}>
               <button onClick={() => setQty(q => Math.max(1, q - 1))} style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary)' }}><Minus size={20} /></button>
               <span style={{ width: '40px', textAlign: 'center', fontWeight: 800, fontSize: '1.1rem' }}>{qty}</span>
               <button onClick={() => setQty(q => q + 1)} style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary)' }}><Plus size={20} /></button>
@@ -140,9 +134,9 @@ export default function ProductDetail() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleAdd}
+              className="btn btn-primary"
               style={{ 
-                flex: 1, height: '60px', background: 'var(--primary)', color: '#fff', 
-                borderRadius: '16px', border: 'none', fontWeight: 800, fontSize: '1.1rem', 
+                flex: 1, minWidth: '240px', height: '60px', borderRadius: '16px', border: 'none', fontWeight: 800, fontSize: 'var(--text-md)', 
                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px',
                 boxShadow: 'var(--sh-md)', cursor: 'pointer'
               }}
@@ -151,7 +145,7 @@ export default function ProductDetail() {
             </motion.button>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
             {[
               { icon: <Truck />, title: 'Fresh Delivery', sub: 'Within 2 hours' },
               { icon: <ShieldCheck />, title: 'Quality Assured', sub: '100% Organic' }
@@ -173,18 +167,11 @@ export default function ProductDetail() {
           <h2 style={{ fontSize: '2rem', fontWeight: 800, fontFamily: 'var(--font-serif)' }}>More to Explore</h2>
           <button onClick={() => navigate('/products')} style={{ fontWeight: 700, color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '8px' }}>View All <ChevronRight size={18} /></button>
         </div>
-        <div className="products-grid" style={{ gridTemplateColumns: 'repeat(4, 1fr)', gap: '30px' }}>
+        <div className="products-grid">
           {related.map(p => <ProductCard key={p.id} product={p} />)}
         </div>
       </section>
 
-      <style>{`
-        @media (max-width: 1024px) {
-          .detail-layout { grid-template-columns: 1fr !important; gap: 40px !important; }
-          .main-img-wrap { padding: 40px !important; }
-          h1 { fontSize: 2.5rem !important; }
-        }
-      `}</style>
     </motion.div>
   )
 }

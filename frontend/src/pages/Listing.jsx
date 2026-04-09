@@ -25,26 +25,42 @@ export default function Listing() {
       setAllProducts(data)
       const uniqueCats = [...new Set(data.map(p => p.cat))]
       setCats(uniqueCats)
-      
-      const cat = searchParams.get('cat')
-      if (cat) setActiveFilters(f => ({ ...f, cats: [cat] }))
-      
-      setTimeout(() => setLoading(false), 500) // Smooth transition
+      setTimeout(() => setLoading(false), 500)
     })
   }, [])
 
+  // Sync state with URL but allow local overrides for multi-select
+  useEffect(() => {
+    const cat = searchParams.get('cat')
+    if (cat && !activeFilters.cats.includes(cat)) {
+      setActiveFilters(f => ({ ...f, cats: [cat] }))
+    } else if (!cat && activeFilters.cats.length === 1 && searchParams.get('cat') === null) {
+      // Logic for initial load or back navigation
+    }
+  }, [searchParams])
+
   useEffect(() => {
     let filtered = [...allProducts]
-    const catSearch = searchParams.get('cat')
     const querySearch = searchParams.get('search')
-
-    if (catSearch) filtered = filtered.filter(p => p.cat === catSearch)
-    if (querySearch) filtered = filtered.filter(p => p.name.toLowerCase().includes(querySearch.toLowerCase()))
     
-    if (activeFilters.cats.length > 0) filtered = filtered.filter(p => activeFilters.cats.includes(p.cat))
+    // URL Search query
+    if (querySearch) {
+      filtered = filtered.filter(p => p.name.toLowerCase().includes(querySearch.toLowerCase()))
+    }
     
-    filtered = filtered.filter(p => p.price >= activeFilters.minPrice && p.price <= activeFilters.maxPrice && p.rating >= activeFilters.rating)
+    // Category filtering (Primary logic)
+    if (activeFilters.cats.length > 0) {
+      filtered = filtered.filter(p => activeFilters.cats.includes(p.cat))
+    }
     
+    // Range and Rating
+    filtered = filtered.filter(p => 
+      p.price >= activeFilters.minPrice && 
+      p.price <= activeFilters.maxPrice && 
+      p.rating >= activeFilters.rating
+    )
+    
+    // Sorting
     if (sort === 'price-asc') filtered.sort((a, b) => a.price - b.price)
     else if (sort === 'price-desc') filtered.sort((a, b) => b.price - a.price)
     else if (sort === 'rating') filtered.sort((a, b) => b.rating - a.rating)
@@ -54,10 +70,21 @@ export default function Listing() {
   }, [allProducts, activeFilters, sort, searchParams])
 
   const toggleCat = (cat) => {
-    setActiveFilters(f => ({
-      ...f,
-      cats: f.cats.includes(cat) ? f.cats.filter(c => c !== cat) : [...f.cats, cat]
-    }))
+    const newCats = activeFilters.cats.includes(cat) 
+      ? activeFilters.cats.filter(c => c !== cat) 
+      : [...activeFilters.cats, cat]
+    
+    setActiveFilters(f => ({ ...f, cats: newCats }))
+    
+    // Update URL for single selection (or clear if multiple)
+    if (newCats.length === 1) {
+      setSearchParams({ cat: newCats[0] })
+    } else {
+      const params = {}
+      const search = searchParams.get('search')
+      if (search) params.search = search
+      setSearchParams(params)
+    }
   }
 
   const clearFilters = () => {
@@ -111,7 +138,7 @@ export default function Listing() {
 
   return (
     <div className="listing-page">
-      <div className="listing-header" style={{ background: 'var(--bg-alt)', borderBottom: '1px solid var(--border)', padding: 'var(--sp-12) 0' }}>
+      <div className="listing-header">
         <div className="container">
           <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
             <h1 style={{ fontSize: 'clamp(2rem, 5vw, 2.8rem)', fontWeight: 900, marginBottom: '8px', color: 'var(--ink)', letterSpacing: '-0.02em' }}>
@@ -124,10 +151,10 @@ export default function Listing() {
         </div>
       </div>
 
-      <div className="container" style={{ paddingTop: 'var(--sp-10)' }}>
-        <div className="listing-main" style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: 'var(--sp-10)' }}>
+      <div className="container" style={{ paddingTop: 'var(--sp-10)', paddingBottom: 'var(--sp-16)' }}>
+        <div className="listing-main">
           {/* Desktop Filters */}
-          <aside className="sidebar-filters" style={{ position: 'sticky', top: '100px', alignSelf: 'start' }}>
+          <aside className="sidebar-filters">
             <div className="card" style={{ padding: 'var(--sp-6)', borderRadius: 'var(--r-2xl)', background: 'var(--surface)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: 'var(--sp-6)', fontWeight: 800, color: 'var(--ink)', fontSize: 'var(--text-md)' }}>
                 <SlidersHorizontal size={18} color="var(--primary)" /> Filters
@@ -138,7 +165,7 @@ export default function Listing() {
 
           {/* Product Feed */}
           <div className="feed-wrap">
-            <div className="feed-utils" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--sp-6)' }}>
+            <div className="feed-utils">
                <button className="mob-filter-trigger btn btn-ghost" onClick={() => setShowMobFilters(true)} style={{ display: 'none' }}>
                  <Filter size={18} /> Filters
                </button>
@@ -170,12 +197,7 @@ export default function Listing() {
                </div>
             </div>
 
-            <div className="products-grid" style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', 
-              gap: 'var(--sp-8)',
-              width: '100%'
-            }}>
+            <div className="products-grid">
               <AnimatePresence mode="popLayout">
                 {loading ? (
                   [...Array(8)].map((_, i) => (
@@ -242,7 +264,9 @@ export default function Listing() {
                   <X size={20} />
                 </button>
               </div>
-              <FilterContent />
+              <div className="drawer-filter-content">
+                <FilterContent />
+              </div>
               <button 
                 className="btn btn-primary" 
                 style={{ width: '100%', marginTop: '32px', height: '56px', fontSize: 'var(--text-md)' }} 

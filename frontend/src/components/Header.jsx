@@ -119,8 +119,8 @@ export default function Header({ onCartOpen, onAuthOpen, onLocOpen, location }) 
       {/* ── Main Header ── */}
       <header className={`header${scrolled ? ' scrolled' : ''}`}>
         {/* Top Row */}
-        <div className="header-top" style={{ padding: scrolled ? '10px 0' : '14px 0', transition: 'padding 0.25s' }}>
-          <div className="container" style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+        <div className="header-top">
+          <div className="container">
 
             {/* Mobile menu trigger */}
             <button className="mob-menu-btn" onClick={() => setMobMenuOpen(true)} aria-label="Open menu">
@@ -135,18 +135,18 @@ export default function Header({ onCartOpen, onAuthOpen, onLocOpen, location }) 
               <div className="logo-text">Fresh<span>Mart</span></div>
             </Link>
 
-              <div className="search-wrap" ref={wrapRef} style={{ flex: 1, maxWidth: 540, position: 'relative' }}>
-                <Search className="search-icon" size={18} />
-                <input
-                  className="search-input"
-                  placeholder={recognizing ? 'Analyzing image…' : 'Search fresh groceries…'}
-                  value={search}
-                  onChange={e => handleSearch(e.target.value)}
-                  onFocus={() => search.length > 0 && setSuggOpen(true)}
-                  onKeyDown={e => e.key === 'Enter' && doSearch()}
-                  aria-label="Search products"
-                  style={{ paddingRight: 50 }}
-                />
+            {/* Search Bar Wrap */}
+            <div className="search-wrap" ref={wrapRef}>
+              <Search className="search-icon" size={18} />
+              <input
+                className="search-input"
+                placeholder={recognizing ? 'Analyzing image…' : 'Search fresh groceries…'}
+                value={search}
+                onChange={e => handleSearch(e.target.value)}
+                onFocus={() => search.length > 0 && setSuggOpen(true)}
+                onKeyDown={e => e.key === 'Enter' && doSearch()}
+                aria-label="Search products"
+              />
                 <motion.div 
                   className="search-glow"
                   initial={false}
@@ -265,19 +265,18 @@ export default function Header({ onCartOpen, onAuthOpen, onLocOpen, location }) 
                 </div>
               </motion.button>
 
-              {/* Theme toggle */}
-              <button
-                className="ha-btn"
-                onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
-                aria-label="Toggle theme"
-                title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              {/* Theme Toggle - Hidden on Mobile */}
+              <button 
+                className="header-btn-minimal hide-mob"
+                onClick={() => setTheme(t => t === 'light' ? 'dark' : 'light')}
+                aria-label="Toggle Theme"
               >
-                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+                {theme === 'light' ? <Moon size={20} strokeWidth={2.5} /> : <Sun size={20} strokeWidth={2.5} />}
               </button>
 
-              {/* Wishlist */}
+              {/* Wishlist - Hidden on Mobile */}
               <button 
-                className="ha-btn" 
+                className="ha-btn hide-mob" 
                 onClick={() => navigate('/wishlist')} 
                 aria-label="Wishlist"
                 style={{ position: 'relative' }}
@@ -336,19 +335,6 @@ export default function Header({ onCartOpen, onAuthOpen, onLocOpen, location }) 
                   whileTap={{ scale: 0.98 }}
                   className="btn btn-primary login-btn-premium"
                   onClick={onAuthOpen}
-                  style={{ 
-                    padding: '12px 28px', 
-                    fontSize: 'var(--text-sm)', 
-                    background: 'var(--primary)', 
-                    color: '#fff',
-                    fontWeight: 900,
-                    borderRadius: 'var(--r-lg)',
-                    boxShadow: '0 4px 12px rgba(var(--primary-rgb), 0.25)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 8,
-                    border: '1.5px solid rgba(255,255,255,0.1)'
-                  }}
                 >
                   <User size={16} />
                   <span>Log In / Sign Up</span>
@@ -357,17 +343,8 @@ export default function Header({ onCartOpen, onAuthOpen, onLocOpen, location }) 
 
               {/* Cart */}
               <button
-                className="btn btn-primary"
+                className="btn btn-primary cart-btn-premium"
                 onClick={onCartOpen}
-                style={{
-                  padding: '10px 18px',
-                  borderRadius: 'var(--r-md)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 10,
-                  position: 'relative',
-                  fontWeight: 800
-                }}
                 aria-label={`Cart — ${totals.itemCount} items`}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -376,8 +353,6 @@ export default function Header({ onCartOpen, onAuthOpen, onLocOpen, location }) 
                   </motion.div>
                   <span className="cart-label">My Cart</span>
                 </div>
-                <div style={{ width: 1, height: 16, background: 'rgba(255,255,255,0.3)' }} />
-                <span>₹{totals.total}</span>
                 {totals.itemCount > 0 && (
                   <span style={{
                     background: '#fff',
@@ -463,18 +438,7 @@ export default function Header({ onCartOpen, onAuthOpen, onLocOpen, location }) 
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 28, stiffness: 240 }}
-              style={{
-                position: 'fixed',
-                inset: '0 25% 0 0',
-                zIndex: 2000,
-                background: 'var(--surface)',
-                borderRight: '1px solid var(--border)',
-                boxShadow: 'var(--sh-xl)',
-                padding: '28px 24px',
-                display: 'flex',
-                flexDirection: 'column',
-                overflowY: 'auto'
-              }}
+              className="mob-drawer"
             >
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 40 }}>
                 <div className="logo-text">Fresh<span>Mart</span></div>
@@ -487,6 +451,18 @@ export default function Header({ onCartOpen, onAuthOpen, onLocOpen, location }) 
               </div>
 
               <div style={{ display: 'grid', gap: 4 }}>
+                {/* Theme Toggle in Drawer */}
+                <div 
+                  className="pdd-item" 
+                  style={{ padding: '14px 16px', fontSize: 'var(--text-md)', fontWeight: 700, color: 'var(--ink)' }}
+                  onClick={() => setTheme(t => t === 'light' ? 'dark' : 'light')}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                    {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+                    {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
+                  </div>
+                </div>
+
                 {['Home', ...NAV_LINKS.map(l => l.name), 'My Orders'].map((item, i) => (
                   <motion.div
                     key={item}
