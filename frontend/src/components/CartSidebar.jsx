@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
+import { useAuth } from '../context/AuthContext'
 import { useNotif } from '../context/NotifContext'
 import { X, ShoppingBag, Plus, Minus, Trash2, Truck, ShieldCheck, CreditCard, ArrowRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-export default function CartSidebar({ open, onClose }) {
+export default function CartSidebar({ open, onClose, onAuthOpen }) {
+  const { user } = useAuth()
   const { cart, totals, updateQty, coupon, applyCoupon } = useCart()
   const { showNotif } = useNotif()
   const [couponCode, setCouponCode] = useState('')
@@ -35,7 +37,16 @@ export default function CartSidebar({ open, onClose }) {
     showNotif('Coupon removed', 'info')
   }
 
-  const handleCheckout = () => { onClose(); navigate('/checkout') }
+  const handleCheckout = () => { 
+    if (!user) {
+      showNotif('Please login to place an order', 'info')
+      onClose()
+      navigate('/login')
+      return
+    }
+    onClose() 
+    navigate('/checkout') 
+  }
 
   return (
     <AnimatePresence>

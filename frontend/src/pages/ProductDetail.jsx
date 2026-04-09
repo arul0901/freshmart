@@ -105,29 +105,39 @@ export default function ProductDetail() {
         {/* Right: Product Info */}
         <div className="detail-info">
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-            <span style={{ padding: '4px 12px', background: 'var(--primary-50)', color: 'var(--primary)', borderRadius: '99px', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase' }}>{product.cat}</span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#f59e0b', fontSize: '0.9rem', fontWeight: 700 }}>
-              <Star size={16} fill="#f59e0b" /> {product.rating} <span style={{ color: 'var(--muted)', fontWeight: 500 }}>(4.8k Reviews)</span>
+            <span style={{ padding: '4px 12px', background: 'var(--primary-light)', color: 'var(--primary)', borderRadius: 'var(--r-full)', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase' }}>{product.cat}</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--a500)', fontSize: '0.9rem', fontWeight: 700 }}>
+              <Star size={16} fill="var(--a500)" /> {product.rating} <span style={{ color: 'var(--muted)', fontWeight: 500 }}>(4.8k Reviews)</span>
             </div>
           </div>
 
           <h1 className="detail-title">{product.name}</h1>
           <p style={{ fontSize: '1.1rem', color: 'var(--muted)', marginBottom: '32px', lineHeight: 1.6 }}>The finest {product.name.toLowerCase()} selected from organic farms. Guaranteed {product.weight} of pure freshness delivered to your door.</p>
 
-          <div style={{ background: 'var(--canvas)', borderRadius: '24px', padding: '32px', marginBottom: '40px', border: '1.5px solid var(--border-light)' }}>
+          <div style={{ background: 'var(--canvas)', borderRadius: 'var(--r-xl)', padding: 'var(--sp-8)', marginBottom: 'var(--sp-10)', border: '1.5px solid var(--border-light)' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '8px' }}>
               <span style={{ fontSize: '2.8rem', fontWeight: 900, color: 'var(--primary)' }}>₹{product.price}</span>
               <span style={{ fontSize: '1.4rem', color: 'var(--lighter)', textDecoration: 'line-through' }}>₹{product.price + 40}</span>
-              <span style={{ background: 'var(--success)', color: '#fff', padding: '4px 12px', borderRadius: '8px', fontSize: '0.85rem', fontWeight: 800 }}>-20% OFF</span>
+              <span style={{ background: 'var(--success)', color: '#fff', padding: '4px 12px', borderRadius: 'var(--r-sm)', fontSize: '0.85rem', fontWeight: 800 }}>-20% OFF</span>
             </div>
             <div style={{ fontSize: '0.85rem', color: 'var(--muted)', fontWeight: 500 }}>Inclusive of all taxes • <span style={{ color: 'var(--primary)', fontWeight: 700 }}>Free delivery</span></div>
           </div>
 
-          <div style={{ display: 'flex', gap: '20px', alignItems: 'center', marginBottom: '40px', flexWrap: 'wrap' }}>
-            <div style={{ display: 'flex', alignItems: 'center', background: '#fff', borderRadius: '16px', padding: '6px', border: '1.5px solid var(--border)', boxShadow: 'var(--sh-sm)', minWidth: '130px', justifyContent: 'center' }}>
-              <button onClick={() => setQty(q => Math.max(1, q - 1))} style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary)' }}><Minus size={20} /></button>
-              <span style={{ width: '40px', textAlign: 'center', fontWeight: 800, fontSize: '1.1rem' }}>{qty}</span>
-              <button onClick={() => setQty(q => q + 1)} style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary)' }}><Plus size={20} /></button>
+          <div style={{ display: 'flex', gap: '20px', alignItems: 'center', marginBottom: 'var(--sp-10)', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', background: 'var(--surface)', borderRadius: 'var(--r-md)', padding: '6px', border: '1.5px solid var(--border)', boxShadow: 'var(--sh-sm)', minWidth: '130px', justifyContent: 'center' }}>
+              <button 
+                onClick={() => setQty(q => Math.max(1, q - 1))} 
+                style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary)', background: 'none', border: 'none', cursor: 'pointer' }}
+              >
+                <Minus size={20} />
+              </button>
+              <span style={{ width: '40px', textAlign: 'center', fontWeight: 800, fontSize: '1.1rem', color: 'var(--ink)' }}>{qty}</span>
+              <button 
+                onClick={() => setQty(q => q + 1)} 
+                style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary)', background: 'none', border: 'none', cursor: 'pointer' }}
+              >
+                <Plus size={20} />
+              </button>
             </div>
 
             <motion.button 
@@ -136,7 +146,7 @@ export default function ProductDetail() {
               onClick={handleAdd}
               className="btn btn-primary"
               style={{ 
-                flex: 1, minWidth: '240px', height: '60px', borderRadius: '16px', border: 'none', fontWeight: 800, fontSize: 'var(--text-md)', 
+                flex: 1, minWidth: '240px', height: '60px', borderRadius: 'var(--r-md)', border: 'none', fontWeight: 800, fontSize: 'var(--text-md)', 
                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px',
                 boxShadow: 'var(--sh-md)', cursor: 'pointer'
               }}

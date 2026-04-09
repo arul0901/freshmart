@@ -74,7 +74,7 @@ export default function Dashboard() {
         </div>
         <div className="chart-wrap">
           <div className="chart-title">Sales by Category</div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+          <div className="summary-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: 16 }}>
             {data.categoryBreakdown.map((cat, i) => (
               <div key={cat.name} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <div style={{ width: 12, height: 12, borderRadius: '50%', background: ['var(--sage)', 'var(--gold)', 'var(--coral)', 'var(--blue)', 'var(--lighter)'][i] }} />

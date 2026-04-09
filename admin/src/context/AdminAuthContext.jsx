@@ -17,8 +17,9 @@ export function AdminAuthProvider({ children }) {
   }, [token])
 
   const login = async (email, password) => {
+    const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001/api'
     try {
-      const res = await fetch('http://localhost:5000/api/auth/login', {
+      const res = await fetch(`${API_BASE}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })

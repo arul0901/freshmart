@@ -33,7 +33,7 @@ function Countdown() {
   )
 }
 
-export default function Home({ onAuthOpen }) {
+export default function Home() {
   const [bestSellers, setBestSellers] = useState([])
   const [flashProducts, setFlashProducts] = useState([])
   const [loading, setLoading] = useState(true)
@@ -59,7 +59,7 @@ export default function Home({ onAuthOpen }) {
 
   return (
     <main>
-      <HeroBanner onShop={() => navigate('/products')} onSignup={onAuthOpen} />
+      <HeroBanner onShop={() => navigate('/products')} onSignup={() => navigate('/signup')} />
 
       <div style={{ position: 'relative', marginTop: '-50px', zIndex: 20 }}>
         <div className="container">

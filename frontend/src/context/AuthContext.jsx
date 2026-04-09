@@ -34,6 +34,20 @@ export function AuthProvider({ children }) {
     if (error) console.error("Google Login Error:", error.message)
   }
 
+  const signupWithEmail = async (email, password, displayName) => {
+    return await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { display_name: displayName }
+      }
+    })
+  }
+
+  const loginWithEmail = async (email, password) => {
+    return await supabase.auth.signInWithPassword({ email, password })
+  }
+
   const signInWithEmailOtp = async (email) => {
     return await supabase.auth.signInWithOtp({ email })
   }
@@ -47,7 +61,7 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, session, loading, loginWithGoogle, signInWithEmailOtp, verifyEmailOtp, logout }}>
+    <AuthContext.Provider value={{ user, session, loading, loginWithGoogle, signupWithEmail, loginWithEmail, signInWithEmailOtp, verifyEmailOtp, logout }}>
       {children}
     </AuthContext.Provider>
   )

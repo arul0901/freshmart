@@ -10,7 +10,7 @@ export default function AdminLogin() {
   const [loading, setLoading] = useState(false)
   
   const { login } = useAdminAuth()
-  const { addNotif } = useNotif()
+  const { showNotif } = useNotif()
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
@@ -20,10 +20,10 @@ export default function AdminLogin() {
     const res = await login(email, password)
     
     if (res.success) {
-      addNotif('Welcome back, Admin!', 'success')
+      showNotif('Welcome back, Admin!', 'success')
       navigate('/')
     } else {
-      addNotif(res.error || 'Login failed', 'error')
+      showNotif(res.error || 'Login failed', 'error')
     }
     setLoading(false)
   }

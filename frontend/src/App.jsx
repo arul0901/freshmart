@@ -4,12 +4,15 @@ import { AuthProvider } from './context/AuthContext'
 import { NotifProvider } from './context/NotifContext'
 import Header from './components/Header'
 import CartSidebar from './components/CartSidebar'
-import AuthModal from './components/AuthModal'
 import AIChat from './components/AIChat'
 import LocationSidebar from './components/LocationSidebar'
 import PageLoader from './components/PageLoader'
+import FloatingCart from './components/FloatingCart'
 import { useState, useEffect, lazy, Suspense } from 'react'
 
+import UserProtectedRoute from './components/UserProtectedRoute'
+
+// Lazy load pages for performance (Code Splitting)
 // Lazy load pages for performance (Code Splitting)
 const Home = lazy(() => import('./pages/Home'))
 const Listing = lazy(() => import('./pages/Listing'))
@@ -19,6 +22,8 @@ const Orders = lazy(() => import('./pages/Orders'))
 const Wishlist = lazy(() => import('./pages/Wishlist'))
 const Settings = lazy(() => import('./pages/Settings'))
 const Premium = lazy(() => import('./pages/Premium'))
+const Login = lazy(() => import('./pages/Login'))
+const Signup = lazy(() => import('./pages/Signup'))
 
 /**
  * Top Loading Bar component that triggers on route changes
@@ -48,6 +53,8 @@ function PageTitleManager() {
     let title = 'FreshMart — Premium Grocery Delivery'
     
     if (path === '/') title = 'FreshMart — Farm Fresh Essentials'
+    else if (path === '/login') title = 'Welcome Back — FreshMart Login'
+    else if (path === '/signup') title = 'Create Account — Join FreshMart'
     else if (path.startsWith('/products')) title = 'Shop Premium Groceries — FreshMart'
     else if (path === '/checkout') title = 'Secure Checkout — FreshMart'
     else if (path === '/orders') title = 'My Deliveries — FreshMart'
@@ -63,7 +70,6 @@ function PageTitleManager() {
 
 export default function App() {
   const [cartOpen, setCartOpen] = useState(false)
-  const [authOpen, setAuthOpen] = useState(false)
   const [locOpen, setLocOpen] = useState(false)
   const [location, setLocation] = useState(localStorage.getItem('fm_location') || 'Chennai, TN 600001')
 
@@ -78,22 +84,30 @@ export default function App() {
           <BrowserRouter>
             <TopLoadingBar />
             <PageTitleManager />
-            <Header onCartOpen={() => setCartOpen(true)} onAuthOpen={() => setAuthOpen(true)} onLocOpen={() => setLocOpen(true)} location={location} />
-            <CartSidebar open={cartOpen} onClose={() => setCartOpen(false)} onCheckout={() => { setCartOpen(false) }} />
-            <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
+            <Header onCartOpen={() => setCartOpen(true)} onLocOpen={() => setLocOpen(true)} location={location} />
+            <CartSidebar 
+              open={cartOpen} 
+              onClose={() => setCartOpen(false)} 
+            />
+            <FloatingCart onOpen={() => setCartOpen(true)} />
             <LocationSidebar open={locOpen} onClose={() => setLocOpen(false)} onSelect={(l) => setLocation(l)} />
             <AIChat />
             
             <Suspense fallback={<PageLoader />}>
               <Routes>
-                <Route path="/" element={<Home onCartOpen={() => setCartOpen(true)} onAuthOpen={() => setAuthOpen(true)} />} />
+                <Route path="/" element={<Home onCartOpen={() => setCartOpen(true)} />} />
                 <Route path="/products" element={<Listing />} />
                 <Route path="/products/:id" element={<ProductDetail />} />
-                <Route path="/checkout" element={<Checkout />} />
-                <Route path="/orders" element={<Orders onAuthOpen={() => setAuthOpen(true)} />} />
-                <Route path="/wishlist" element={<Wishlist />} />
-                <Route path="/settings" element={<Settings />} />
-                <Route path="/premium" element={<Premium />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                
+                <Route element={<UserProtectedRoute />}>
+                  <Route path="/checkout" element={<Checkout />} />
+                  <Route path="/orders" element={<Orders />} />
+                  <Route path="/wishlist" element={<Wishlist />} />
+                  <Route path="/settings" element={<Settings />} />
+                  <Route path="/premium" element={<Premium />} />
+                </Route>
               </Routes>
             </Suspense>
           </BrowserRouter>
@@ -102,3 +116,5 @@ export default function App() {
     </NotifProvider>
   )
 }
+
+

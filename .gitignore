@@ -38,3 +38,7 @@ yarn-error.log*
 # OS
 .DS_Store
 Thumbs.db
+
+# Custom Exclusions
+tmp/
+freshmart.html

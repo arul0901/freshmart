@@ -48,6 +48,8 @@ const HeroBanner = ({ onShop, onSignup }) => {
         style={{ 
           y: yText, 
           opacity, 
+          position: 'relative',
+          zIndex: 10
         }}
       >
         <motion.div
@@ -57,36 +59,37 @@ const HeroBanner = ({ onShop, onSignup }) => {
         >
           <span style={{ 
             display: 'inline-block', 
-            background: 'rgba(255,255,255,0.1)', 
+            background: 'var(--primary-light)', 
             padding: '8px 16px', 
-            borderRadius: '99px', 
-            fontSize: '0.8rem', 
-            color: 'var(--primary-100)', 
-            fontWeight: 700, 
+            borderRadius: 'var(--r-full)', 
+            fontSize: 'var(--text-xs)', 
+            color: 'var(--primary)', 
+            fontWeight: 800, 
             letterSpacing: '0.1em', 
             textTransform: 'uppercase', 
             marginBottom: '32px',
-            border: '1px solid rgba(255,255,255,0.1)',
+            border: '1px solid var(--border)',
             backdropFilter: 'blur(10px)'
           }}>
             Premium Grocery Selection
           </span>
           <h1 style={{ 
             fontSize: 'clamp(3rem, 8vw, 5.5rem)', 
-            fontWeight: 800, 
-            color: '#fff', 
-            lineHeight: 1.05, 
+            fontWeight: 900, 
+            color: 'var(--ink)', 
+            lineHeight: 1.02, 
             marginBottom: '24px', 
-            letterSpacing: '-0.03em' 
+            letterSpacing: '-0.04em' 
           }}>
-            Freshness delivered <br/> to your <span style={{ color: 'var(--accent)' }}>Doorstep</span>
+            Freshness delivered <br/> to your <span style={{ color: 'var(--primary)' }}>Doorstep</span>
           </h1>
           <p style={{ 
             fontSize: 'clamp(1.1rem, 2vw, 1.4rem)', 
-            color: 'rgba(255,255,255,0.7)', 
+            color: 'var(--muted)', 
             marginBottom: '48px', 
             maxWidth: '650px', 
-            margin: '0 auto 48px' 
+            margin: '0 auto 48px',
+            fontWeight: 500
           }}>
             Hand-picked organic produce, farm-to-table freshness, and 10-minute delivery. Why shop anywhere else?
           </p>
@@ -97,9 +100,9 @@ const HeroBanner = ({ onShop, onSignup }) => {
               onClick={onShop}
               className="btn btn-primary"
               style={{ 
-                padding: '18px 40px', fontSize: 'var(--text-md)', background: '#fff', 
-                color: 'var(--primary-900)', borderRadius: '16px', border: 'none', 
-                fontWeight: 800, cursor: 'pointer', boxShadow: '0 10px 40px rgba(0,0,0,0.2)' 
+                padding: '20px 48px', fontSize: 'var(--text-md)', 
+                borderRadius: 'var(--r-md)', border: 'none', 
+                fontWeight: 900, cursor: 'pointer', boxShadow: 'var(--sh-lg)' 
               }}
             >
               Shop Now
@@ -110,9 +113,9 @@ const HeroBanner = ({ onShop, onSignup }) => {
               onClick={onSignup}
               className="btn btn-outline"
               style={{ 
-                padding: '18px 40px', fontSize: 'var(--text-md)', background: 'transparent', 
-                color: '#fff', borderRadius: '16px', border: '2px solid rgba(255,255,255,0.2)', 
-                fontWeight: 700, cursor: 'pointer', backdropFilter: 'blur(10px)' 
+                padding: '18px 46px', fontSize: 'var(--text-md)', background: 'transparent', 
+                color: 'var(--ink)', borderRadius: 'var(--r-md)', 
+                fontWeight: 800, cursor: 'pointer', backdropFilter: 'blur(10px)' 
               }}
             >
               Get Started

@@ -7,34 +7,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap');
 
 /* ── Raw Palette ── */
+/* ── Raw Palette — Soft Brown Overhaul ── */
 :root {
-  /* Teal primary scale */
-  --p900: #00303f;
-  --p800: #004c5a;
-  --p700: #006d77;
-  --p600: #0096a6;
-  --p500: #00c2d1;
-  --p400: #33d1de;
-  --p300: #66e0eb;
-  --p100: #ccf3f7;
-  --p50 : #e8fbfd;
+  /* Brown primary scale (#E5AA70 base) */
+  --p900: #3e2723;
+  --p800: #5d4037;
+  --p700: #8d6e63;
+  --p600: #c58c52;
+  --p500: #E5AA70;
+  --p400: #ecc59a;
+  --p300: #f3dfc4;
+  --p100: #fdf5ea;
+  --p50 : #fffcf9;
 
-  /* Amber accent scale */
-  --a700: #b45309;
-  --a600: #d97706;
-  --a500: #f59e0b;
-  --a100: #fef3c7;
-  --a50 : #fffbeb;
+  /* Gold/Amber accent scale (#E1C16E base) */
+  --a700: #937b3f;
+  --a600: #b99e52;
+  --a500: #E1C16E;
+  --a100: #fcf6e7;
+  --a50 : #fffdfa;
 
-  /* Semantic status */
-  --error   : #ef4444;
-  --error-bg: #fef2f2;
-  --success : #10b981;
-  --success-bg: #ecfdf5;
-  --warning : #f59e0b;
-  --warning-bg: #fffbeb;
-  --info    : #3b82f6;
-  --info-bg : #eff6ff;
+  /* Semantic status — Softened */
+  --error   : #e57373;
+  --error-bg: #fff5f5;
+  --success : #81c784;
+  --success-bg: #f2faf3;
+  --warning : #ffd54f;
+  --warning-bg: #fffcef;
+  --info    : #64b5f6;
+  --info-bg : #f0f7ff;
 
   /* ── Spacing System (8px base) ── */
   --sp-1: 4px;
@@ -48,27 +49,27 @@
   --sp-12: 48px;
   --sp-16: 64px;
 
-  /* ── Border Radius (3-tier standard) ── */
-  --r-xs  : 6px;
-  --r-sm  : 8px;
-  --r     : 12px;
-  --r-md  : 14px;
-  --r-lg  : 16px;
-  --r-xl  : 20px;
-  --r-2xl : 24px;
+  /* ── Border Radius (2.0 Upgrade: Squircle) ── */
+  --r-xs  : 8px;
+  --r-sm  : 12px;
+  --r     : 16px;
+  --r-md  : 20px;
+  --r-lg  : 24px;
+  --r-xl  : 28px;
+  --r-2xl : 32px;
   --r-full: 9999px;
 
   /* ── Typography (Responsive with clamp) ── */
   --font: 'Roboto Condensed', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --text-xs  : 0.70rem;
-  --text-sm  : 0.80rem;
-  --text-base: clamp(0.85rem, 1vw + 0.5rem, 0.95rem);
-  --text-md  : clamp(0.95rem, 1.2vw + 0.6rem, 1.05rem);
-  --text-lg  : clamp(1.10rem, 2vw + 0.7rem, 1.20rem);
-  --text-xl  : clamp(1.30rem, 3vw + 0.8rem, 1.50rem);
-  --text-2xl : clamp(1.60rem, 4vw + 1rem, 2.00rem);
-  --text-3xl : clamp(2.00rem, 6vw + 1.2rem, 2.50rem);
-  --text-4xl : clamp(2.50rem, 8vw + 1.5rem, 3.00rem);
+  --text-sm  : 0.82rem;
+  --text-base: clamp(0.88rem, 1vw + 0.5rem, 0.98rem);
+  --text-md  : clamp(1.00rem, 1.2vw + 0.6rem, 1.10rem);
+  --text-lg  : clamp(1.15rem, 2vw + 0.7rem, 1.25rem);
+  --text-xl  : clamp(1.40rem, 3vw + 0.8rem, 1.60rem);
+  --text-2xl : clamp(1.80rem, 4vw + 1rem, 2.20rem);
+  --text-3xl : clamp(2.20rem, 6vw + 1.2rem, 2.80rem);
+  --text-4xl : clamp(2.80rem, 8vw + 1.5rem, 3.50rem);
 
   /* ── Breakpoints ── */
   --bp-xs: 320px;
@@ -82,144 +83,126 @@
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  --transition: all 0.25s var(--ease);
-  --transition-fast: all 0.15s var(--ease);
+  --transition: all 0.3s var(--ease);
+  --transition-fast: all 0.18s var(--ease);
   --transition-bounce: all 0.4s var(--ease-spring);
-  --shimmer-speed: 1.6s;
-  --hover-duration: 0.25s;
+  --shimmer-speed: 2s;
+  --hover-duration: 0.3s;
 
-  /* ── Legacy aliases (keep compatibility) ── */
-  --primary-900: var(--p900);
-  --primary-800: var(--p800);
-  --primary-700: var(--p700);
-  --primary-600: var(--p600);
-  --primary-500: var(--p500);
-  --primary-100: var(--p100);
-  --primary-50 : var(--p50);
-  --accent      : var(--a500);
-  --accent-100  : var(--a100);
-  --r-sm        : 8px;  /* redeclare to avoid order issues */
-  --sh-sm : 0 1px 2px 0 rgba(0,0,0,0.05);
-  --sh    : 0 4px 6px -1px rgba(0,0,0,0.08);
-  --sh-md : 0 10px 15px -3px rgba(0,0,0,0.1);
-  --sh-lg : 0 15px 25px -5px rgba(0,0,0,0.1);
-  --sh-xl : 0 20px 40px -10px rgba(0,0,0,0.15);
+  /* ── Color Logic Variables ── */
+  --accent      : #F0C6C6;
+  --accent-100  : #fdf2f2;
+  --sh-sm : 0 1px 3px 0 rgba(0,0,0,0.06);
+  --sh    : 0 4px 12px -2px rgba(93, 64, 55, 0.08); /* Warm shadow */
+  --sh-md : 0 12px 24px -4px rgba(93, 64, 55, 0.12);
+  --sh-lg : 0 20px 40px -8px rgba(93, 64, 55, 0.15);
+  --sh-xl : 0 32px 64px -12px rgba(93, 64, 55, 0.2);
   --font-primary: var(--font);
-  --ease-spring: cubic-bezier(0.175,0.885,0.32,1.275);
 }
 
 /* ============================================================
    LIGHT MODE  (default)
    ============================================================ */
+/* ============================================================
+   LIGHT MODE  (Soft Parchment)
+   ============================================================ */
 [data-theme="light"] {
-  --bg          : #f8fafc;
-  --bg-alt      : #f1f5f9;
+  --bg          : #fdfbf7;
+  --bg-alt      : #f7f1e9;
   --surface     : #ffffff;
-  --surface-2   : #f8fafc;
-  --surface-3   : #f1f5f9;
+  --surface-2   : #fdfbf7;
+  --surface-3   : #f7f1e9;
 
-  /* Canvas / Paper / Pure — "flat" neutral surfaces */
-  --canvas      : #f1f5f9;
-  --paper       : #f8fafc;
+  --canvas      : #f7f1e9;
+  --paper       : #fdfbf7;
   --pure        : #ffffff;
 
-  --ink         : #0f172a;
-  --ink-light   : #334155;
-  --muted       : #64748b;
-  --lighter     : #94a3b8;
-  --placeholder : #cbd5e1;
+  --ink         : #3e2723;
+  --ink-light   : #5d4037;
+  --muted       : #8d6e63;
+  --lighter     : #bcaaa4;
+  --placeholder : #d7ccc8;
 
-  --border      : #e2e8f0;
-  --border-light: #f1f5f9;
-  --border-focus: var(--p600);
+  --border      : #ebdccf;
+  --border-light: #f3e9e0;
+  --border-focus: var(--p500);
 
-  --primary     : var(--p700);
+  --primary     : var(--p500);
   --primary-light: var(--p100);
   --primary-hover: var(--p600);
 
-  /* RGB vals for rgba() usage */
-  --primary-rgb  : 0, 109, 119;
+  --primary-rgb  : 229, 170, 112;
   --surface-rgb  : 255, 255, 255;
-  --ink-rgb      : 15, 23, 42;
+  --ink-rgb      : 62, 39, 35;
 
-  /* Skeleton shimmer */
-  --skeleton-base: #e2e8f0;
+  --skeleton-base: #f3e9e0;
   --skeleton-shine: rgba(255, 255, 255, 0.6);
 
-  /* Header */
-  --header-bg       : rgba(255, 255, 255, 0.92);
-  --header-border   : rgba(226, 232, 240, 0.8);
-  --header-blur     : 20px;
+  --header-bg       : rgba(253, 251, 247, 0.94);
+  --header-border   : rgba(235, 220, 207, 0.6);
+  --header-blur     : 16px;
 
-  /* Dropdown/overlay */
+  --border-grid     : rgba(93, 64, 55, 0.12); /* Specifically for background grid */
+
   --dropdown-bg     : #ffffff;
-  --dropdown-border : #e2e8f0;
-  --dropdown-shadow : 0 20px 40px rgba(0, 0, 0, 0.12);
+  --dropdown-border : #ebdccf;
+  --dropdown-shadow : 0 24px 48px rgba(93, 64, 55, 0.12);
 
-  --overlay-bg      : rgba(15, 23, 42, 0.45);
-
-  --announce-bg     : var(--p800);
-  --announce-text   : #ffffff;
+  --overlay-bg      : rgba(62, 39, 35, 0.4);
+  --announce-bg     : var(--p900);
+  --announce-text   : var(--p100);
 }
 
 /* ============================================================
-   DARK MODE
+   DARK MODE  (Deep Cocoa)
    ============================================================ */
 [data-theme="dark"] {
-  --bg          : #0a0f1a;
-  --bg-alt      : #0f1623;
-  --surface     : #111827;
-  --surface-2   : #1a2235;
-  --surface-3   : #1e2a3a;
+  --bg          : #1a1614;
+  --bg-alt      : #251f1c;
+  --surface     : #251f1c;
+  --surface-2   : #2e2622;
+  --surface-3   : #382e29;
 
-  /* Canvas / Paper / Pure — "flat" neutral surfaces */
-  --canvas      : #0f1623;
-  --paper       : #111827;
-  --pure        : #1a2235;
+  --canvas      : #251f1c;
+  --paper       : #1a1614;
+  --pure        : #2e2622;
 
-  --ink         : #f1f5f9;
-  --ink-light   : #cbd5e1;
-  --muted       : #94a3b8;
-  --lighter     : #64748b;
-  --placeholder : #475569;
+  --ink         : #f3dfc4;
+  --ink-light   : #ecc59a;
+  --muted       : #bcaaa4;
+  --lighter     : #8d6e63;
+  --placeholder : #5d4037;
 
-  --border      : rgba(255, 255, 255, 0.08);
-  --border-light: rgba(255, 255, 255, 0.05);
-  --border-focus: var(--p400);
+  --border      : rgba(229, 170, 112, 0.12);
+  --border-light: rgba(229, 170, 112, 0.08);
+  --border-focus: var(--p500);
 
-  --primary     : var(--p400);
-  --primary-light: rgba(0, 194, 209, 0.15);
-  --primary-hover: var(--p300);
+  --primary     : var(--p500);
+  --primary-light: rgba(229, 170, 112, 0.15);
+  --primary-hover: var(--p400);
 
-  /* RGB vals */
-  --primary-rgb  : 51, 209, 222;
-  --surface-rgb  : 17, 24, 39;
-  --ink-rgb      : 241, 245, 249;
+  --primary-rgb  : 229, 170, 112;
+  --surface-rgb  : 37, 31, 28;
+  --ink-rgb      : 243, 223, 196;
 
-  /* Skeleton shimmer */
-  --skeleton-base : #1e2a3a;
-  --skeleton-shine: rgba(255, 255, 255, 0.04);
+  --skeleton-base : #2e2622;
+  --skeleton-shine: rgba(255, 255, 255, 0.03);
 
-  /* Header */
-  --header-bg       : rgba(10, 15, 26, 0.90);
-  --header-border   : rgba(255, 255, 255, 0.06);
+  --header-bg       : rgba(26, 22, 20, 0.92);
+  --header-border   : rgba(229, 170, 112, 0.1);
   --header-blur     : 20px;
 
-  /* Dropdown/overlay */
-  --dropdown-bg     : #1a2235;
-  --dropdown-border : rgba(255, 255, 255, 0.08);
-  --dropdown-shadow : 0 20px 40px rgba(0, 0, 0, 0.6);
+  --dropdown-bg     : #251f1c;
+  --dropdown-border : rgba(229, 170, 112, 0.12);
+  --dropdown-shadow : 0 24px 48px rgba(0, 0, 0, 0.6);
 
-  --overlay-bg      : rgba(0, 0, 0, 0.65);
+  --overlay-bg      : rgba(0, 0, 0, 0.7);
+  --announce-bg     : #000000;
+  --announce-text   : var(--p300);
 
-  --announce-bg     : var(--p900);
-  --announce-text   : rgba(255, 255, 255, 0.85);
+  --border-grid     : rgba(229, 170, 112, 0.06); 
 
-  /* Shadows are stronger in dark */
-  /* Shadows are softer in dark now */
-  --sh-sm : 0 1px 3px rgba(0,0,0,0.3);
-  --sh    : 0 4px 8px rgba(0,0,0,0.3);
-  --sh-md : 0 12px 20px rgba(0,0,0,0.4);
-  --sh-lg : 0 15px 35px rgba(0,0,0,0.5);
-  --sh-xl : 0 20px 50px rgba(0,0,0,0.6);
+  --sh-sm : 0 2px 4px rgba(0,0,0,0.4);
+  --sh    : 0 4px 12px rgba(0,0,0,0.5);
+  --sh-md : 0 12px 28px rgba(0,0,0,0.6);
 }

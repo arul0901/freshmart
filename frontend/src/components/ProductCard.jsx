@@ -181,49 +181,55 @@ export default function ProductCard({ product }) {
             </div>
           </div>
           
-          {qty > 0 ? (
-            <div 
-              style={{ 
-                background: 'var(--primary)', 
-                display: 'flex', 
-                alignItems: 'center', 
-                borderRadius: 'var(--r-md)', 
-                padding: '3px',
-                boxShadow: '0 2px 8px rgba(var(--primary-rgb), 0.15)'
-              }} 
-              onClick={e => e.stopPropagation()}
+        <div className="product-card-actions" style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 12 }}>
+          <div 
+            className="qty-selector-mini"
+            style={{ 
+              background: 'var(--canvas)', 
+              display: 'flex', 
+              alignItems: 'center', 
+              borderRadius: 'var(--r-md)', 
+              padding: '2px',
+              border: '1.5px solid var(--border-light)'
+            }} 
+            onClick={e => e.stopPropagation()}
+          >
+            <button 
+              onClick={e => handleQty(e, -1)} 
+              disabled={qty === 0}
+              style={{ width: 28, height: 28, border: 'none', background: 'none', cursor: qty === 0 ? 'not-allowed' : 'pointer', color: qty === 0 ? 'var(--lighter)' : 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
-              <button 
-                onClick={e => handleQty(e, -1)} 
-                style={{ width: 28, height: 28, border: 'none', background: 'none', cursor: 'pointer', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-              >
-                <Minus size={14} strokeWidth={3} />
-              </button>
-              <span style={{ width: 28, textAlign: 'center', fontWeight: 900, fontSize: 'var(--text-base)', color: '#fff' }}>
-                {qty}
-              </span>
-              <button 
-                onClick={e => handleQty(e, 1)} 
-                style={{ width: 28, height: 28, border: 'none', background: 'none', cursor: 'pointer', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-              >
-                <Plus size={14} strokeWidth={3} />
-              </button>
-            </div>
-          ) : (
-            <motion.button 
-              whileTap={{ scale: 0.96 }}
-              className="btn btn-primary" 
-              onClick={handleAdd} 
-              style={{ 
-                padding: '9px 24px', 
-                fontSize: 'var(--text-sm)', 
-                borderRadius: 'var(--r-md)',
-                letterSpacing: '0.02em'
-              }}
+              <Minus size={14} strokeWidth={3} />
+            </button>
+            <span style={{ width: 24, textAlign: 'center', fontWeight: 900, fontSize: 'var(--text-sm)', color: 'var(--ink)' }}>
+              {qty}
+            </span>
+            <button 
+              onClick={e => handleQty(e, 1)} 
+              style={{ width: 28, height: 28, border: 'none', background: 'none', cursor: 'pointer', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
-              ADD
-            </motion.button>
-          )}
+              <Plus size={14} strokeWidth={3} />
+            </button>
+          </div>
+
+          <motion.button 
+            whileTap={{ scale: 0.96 }}
+            className="btn btn-primary" 
+            onClick={handleAdd} 
+            style={{ 
+              flex: 1,
+              padding: '14px 0', /* Increased from 10px */
+              fontSize: 'var(--text-sm)', /* Increased from text-xs */
+              fontWeight: 900,
+              borderRadius: 'var(--r-md)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              boxShadow: 'var(--sh-md)'
+            }}
+          >
+            ADD TO CART
+          </motion.button>
+        </div>
         </div>
       </div>
     </motion.div>

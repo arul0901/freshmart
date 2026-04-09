@@ -42,7 +42,7 @@ export default function Orders() {
     <div>
       <div className="search-bar">
         <input placeholder="Search orders by ID or customer..." value={search} onChange={e => setSearch(e.target.value)} />
-        <select className="form-select" style={{ width: 200 }} value={filter} onChange={e => setFilter(e.target.value)}>
+        <select className="form-select" value={filter} onChange={e => setFilter(e.target.value)}>
           <option value="all">All Status</option>
           <option value="pending">Pending</option>
           <option value="processing">Processing</option>

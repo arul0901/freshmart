@@ -39,7 +39,7 @@ export default function Inventory() {
 
   return (
     <div>
-      <div className="stat-grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
+      <div className="stat-grid summary-grid">
         <div className="stat-card">
           <div className="stat-icon red">⚠️</div><div className="stat-val">{products.filter(p => p.stock < 20).length}</div><div className="stat-label">Critical Stock (&lt;20)</div>
         </div>
