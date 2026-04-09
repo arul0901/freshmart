@@ -4,7 +4,8 @@ import { useCart } from '../context/CartContext'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Send, X, MessageSquare, Bot, Sparkles, Minus } from 'lucide-react'
 
-const API_BASE = 'http://localhost:3001/api'
+const API_BASE = import.meta.env.VITE_API_URL;
+console.log('FreshBot initialized with API_BASE:', API_BASE);
 
 function TypewriterMsg({ content, isNew }) {
   const [displayed, setDisplayed] = useState(isNew ? '' : content)
@@ -67,6 +68,7 @@ export default function AIChat() {
         })
       }
     } catch (err) {
+      console.error('FreshBot Connection Error:', err);
       const errorMsg = err.response?.data?.error || 'Sorry, I\'m having trouble connecting right now.';
       setMessages(prev => [...prev, { role: 'bot', content: errorMsg, isNew: true }])
     } finally {
