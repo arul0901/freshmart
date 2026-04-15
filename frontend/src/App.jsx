@@ -9,10 +9,8 @@ import LocationSidebar from './components/LocationSidebar'
 import PageLoader from './components/PageLoader'
 import FloatingCart from './components/FloatingCart'
 import { useState, useEffect, lazy, Suspense } from 'react'
-
 import UserProtectedRoute from './components/UserProtectedRoute'
 
-// Lazy load pages for performance (Code Splitting)
 // Lazy load pages for performance (Code Splitting)
 const Home = lazy(() => import('./pages/Home'))
 const Listing = lazy(() => import('./pages/Listing'))
@@ -21,13 +19,12 @@ const Checkout = lazy(() => import('./pages/Checkout'))
 const Orders = lazy(() => import('./pages/Orders'))
 const Wishlist = lazy(() => import('./pages/Wishlist'))
 const Settings = lazy(() => import('./pages/Settings'))
-const Premium = lazy(() => import('./pages/Premium'))
 const Login = lazy(() => import('./pages/Login'))
 const Signup = lazy(() => import('./pages/Signup'))
+const ForgotPassword = lazy(() => import('./pages/ForgotPassword'))
+const ResetPassword = lazy(() => import('./pages/ResetPassword'))
 
-/**
- * Top Loading Bar component that triggers on route changes
- */
+/** Top Loading Bar — triggers on route changes */
 function TopLoadingBar() {
   const location = useLocation()
   const [loading, setLoading] = useState(false)
@@ -42,26 +39,25 @@ function TopLoadingBar() {
   return <div className="top-progress-bar" />
 }
 
-/**
- * Component to manage dynamic page titles based on route
- */
+/** Page title management */
 function PageTitleManager() {
   const location = useLocation()
-  
+
   useEffect(() => {
     const path = location.pathname
-    let title = 'FreshMart — Premium Grocery Delivery'
-    
+    let title = 'FreshMart — Fresh Grocery Delivery'
+
     if (path === '/') title = 'FreshMart — Farm Fresh Essentials'
     else if (path === '/login') title = 'Welcome Back — FreshMart Login'
     else if (path === '/signup') title = 'Create Account — Join FreshMart'
-    else if (path.startsWith('/products')) title = 'Shop Premium Groceries — FreshMart'
+    else if (path === '/forgot-password') title = 'Reset Password — FreshMart'
+    else if (path === '/reset-password') title = 'Set New Password — FreshMart'
+    else if (path.startsWith('/products')) title = 'Shop Fresh Groceries — FreshMart'
     else if (path === '/checkout') title = 'Secure Checkout — FreshMart'
     else if (path === '/orders') title = 'My Deliveries — FreshMart'
     else if (path === '/wishlist') title = 'My Wishlist — FreshMart'
     else if (path === '/settings') title = 'Account Settings — FreshMart'
-    else if (path === '/premium') title = 'FreshMart Premium Membership'
-    
+
     document.title = title
   }, [location])
 
@@ -85,14 +81,11 @@ export default function App() {
             <TopLoadingBar />
             <PageTitleManager />
             <Header onCartOpen={() => setCartOpen(true)} onLocOpen={() => setLocOpen(true)} location={location} />
-            <CartSidebar 
-              open={cartOpen} 
-              onClose={() => setCartOpen(false)} 
-            />
+            <CartSidebar open={cartOpen} onClose={() => setCartOpen(false)} />
             <FloatingCart onOpen={() => setCartOpen(true)} />
             <LocationSidebar open={locOpen} onClose={() => setLocOpen(false)} onSelect={(l) => setLocation(l)} />
             <AIChat />
-            
+
             <Suspense fallback={<PageLoader />}>
               <Routes>
                 <Route path="/" element={<Home onCartOpen={() => setCartOpen(true)} />} />
@@ -100,14 +93,18 @@ export default function App() {
                 <Route path="/products/:id" element={<ProductDetail />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
-                
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
+
                 <Route element={<UserProtectedRoute />}>
                   <Route path="/checkout" element={<Checkout />} />
                   <Route path="/orders" element={<Orders />} />
                   <Route path="/wishlist" element={<Wishlist />} />
                   <Route path="/settings" element={<Settings />} />
-                  <Route path="/premium" element={<Premium />} />
                 </Route>
+
+                {/* Catch-all: redirect unknown routes to home */}
+                <Route path="*" element={<Home onCartOpen={() => setCartOpen(true)} />} />
               </Routes>
             </Suspense>
           </BrowserRouter>
@@ -116,5 +113,3 @@ export default function App() {
     </NotifProvider>
   )
 }
-
-
