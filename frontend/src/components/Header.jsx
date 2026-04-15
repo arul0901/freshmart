@@ -5,8 +5,7 @@ import { useAuth } from '../context/AuthContext'
 import { productsAPI, aiAPI } from '../api'
 import {
   Leaf, Search, Heart, User, ShoppingCart, MapPin, ChevronDown,
-  Camera, Package, Settings, LogOut, Menu, X, Sun, Moon, ChevronRight,
-  Crown
+  Camera, Package, Settings, LogOut, Menu, X, Sun, Moon, ChevronRight
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -25,7 +24,6 @@ const NAV_LINKS = [
   { name: 'Meat & Fish', cat: 'Meat' },
   { name: 'Snacks', cat: 'Snacks' },
   { name: 'Beverages', cat: 'Beverages' },
-  { name: 'Premium', path: '/premium', isHighlight: true },
   { name: 'My Orders', path: '/orders', icon: Package },
 ]
 
@@ -121,7 +119,7 @@ export default function Header({ onCartOpen, onAuthOpen, onLocOpen, location }) 
       <header className={`header${scrolled ? ' scrolled' : ''}`}>
         {/* Top Row */}
         <div className="header-top">
-          <div className="container">
+          <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--sp-4)', flexWrap: 'nowrap' }}>
 
             {/* Mobile menu trigger */}
             <button className="mob-menu-btn" onClick={() => setMobMenuOpen(true)} aria-label="Open menu">
@@ -129,16 +127,18 @@ export default function Header({ onCartOpen, onAuthOpen, onLocOpen, location }) 
             </button>
 
             {/* Logo */}
-            <Link to="/" className="logo">
+            <Link to="/" className="logo" style={{ minWidth: 'fit-content' }}>
               <div className="logo-icon">
                 <Leaf size={20} strokeWidth={2.5} />
               </div>
-              <div className="logo-text">Fresh<span>Mart</span></div>
+              <div className="logo-text">
+                Fresh<span>Mart</span>
+              </div>
             </Link>
 
             {/* Search Bar Wrap - Only visible when logged in */}
             {user && (
-              <div className="search-wrap" ref={wrapRef}>
+              <div className="search-wrap hide-mob" ref={wrapRef} style={{ flex: 1, maxWidth: 450, margin: '0 20px' }}>
                 <Search className="search-icon" size={18} />
                 <input
                   className="search-input"
@@ -149,12 +149,6 @@ export default function Header({ onCartOpen, onAuthOpen, onLocOpen, location }) 
                   onKeyDown={e => e.key === 'Enter' && doSearch()}
                   aria-label="Search products"
                 />
-                  <motion.div 
-                    className="search-glow"
-                    initial={false}
-                    whileHover={{ scale: 1.01 }}
-                    style={{ position: 'absolute', inset: 0, borderRadius: 'var(--r-md)', pointerEvents: 'none', boxShadow: '0 0 10px rgba(var(--primary-rgb), 0.1)' }}
-                  />
                   <input
                     type="file"
                     accept="image/*"
@@ -169,26 +163,13 @@ export default function Header({ onCartOpen, onAuthOpen, onLocOpen, location }) 
                     aria-label="Search by image"
                     title="Search by image"
                     style={{ 
-                      position: 'absolute', 
-                      right: 8, 
-                      top: '50%', 
-                      transform: 'translateY(-50%)', 
-                      height: 38, 
-                      width: 38,
-                      borderRadius: 'var(--r-md)',
-                      background: 'var(--canvas)',
-                      border: 'none',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: 'var(--muted)',
-                      transition: '0.2s'
+                      position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', 
+                      height: 34, width: 34, borderRadius: 'var(--r-sm)', background: 'var(--canvas)',
+                      border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      color: 'var(--muted)', transition: '0.2s'
                     }}
                   >
-                    {recognizing
-                      ? <span className="animate-spin" style={{ fontSize: 16 }}>⏳</span>
-                      : <Camera size={17} />
-                    }
+                    {recognizing ? <span className="animate-spin" style={{ fontSize: 14 }}>⏳</span> : <Camera size={16} />}
                   </button>
   
                 {/* Suggestions */}
@@ -201,43 +182,19 @@ export default function Header({ onCartOpen, onAuthOpen, onLocOpen, location }) 
                       transition={{ duration: 0.15 }}
                       className="search-suggestions"
                     >
-                      <div style={{
-                        padding: '12px 18px 8px',
-                        fontSize: 'var(--text-xs)',
-                        fontWeight: 800,
-                        color: 'var(--muted)',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.06em'
-                      }}>
+                      <div style={{ padding: '12px 18px 8px', fontSize: 'var(--text-xs)', fontWeight: 800, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                         Suggestions
                       </div>
                       {suggestions.map(p => (
-                        <div
-                          key={p.id}
-                          className="sugg-item"
-                          onClick={() => { navigate(`/products/${p.id}`); setSuggOpen(false); setSearch('') }}
-                        >
-                          <div style={{
-                            width: 42, height: 42,
-                            background: 'var(--canvas)',
-                            borderRadius: 'var(--r)',
-                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            fontSize: '1.4rem', flexShrink: 0,
-                            border: '1px solid var(--border)'
-                          }}>
+                        <div key={p.id} className="sugg-item" onClick={() => { navigate(`/products/${p.id}`); setSuggOpen(false); setSearch('') }}>
+                          <div style={{ width: 42, height: 42, background: 'var(--canvas)', borderRadius: 'var(--r)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.4rem', flexShrink: 0, border: '1px solid var(--border)' }}>
                             {p.emoji}
                           </div>
                           <div style={{ flex: 1, minWidth: 0 }}>
-                            <div style={{ fontWeight: 700, fontSize: 'var(--text-sm)', color: 'var(--ink)', marginBottom: 2 }}>
-                              {p.name}
-                            </div>
-                            <div style={{ fontSize: 'var(--text-xs)', color: 'var(--muted)' }}>
-                              {p.cat} · {p.weight}
-                            </div>
+                            <div style={{ fontWeight: 700, fontSize: 'var(--text-sm)', color: 'var(--ink)', marginBottom: 2 }}>{p.name}</div>
+                            <div style={{ fontSize: 'var(--text-xs)', color: 'var(--muted)' }}>{p.cat} · {p.weight}</div>
                           </div>
-                          <div style={{ fontWeight: 800, color: 'var(--primary)', fontSize: 'var(--text-sm)', flexShrink: 0 }}>
-                            ₹{p.price}
-                          </div>
+                          <div style={{ fontWeight: 800, color: 'var(--primary)', fontSize: 'var(--text-sm)', flexShrink: 0 }}>₹{p.price}</div>
                         </div>
                       ))}
                     </motion.div>
@@ -247,75 +204,54 @@ export default function Header({ onCartOpen, onAuthOpen, onLocOpen, location }) 
             )}
 
             {/* Right Actions */}
-            <div className="header-actions">
+            <div className="header-actions" style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
               {/* Delivery chip */}
               <motion.button 
                 whileHover={{ y: -3 }}
-                className="delivery-chip" onClick={onLocOpen} aria-label="Change delivery location"
+                className="delivery-chip hide-mob" onClick={onLocOpen} aria-label="Change delivery location"
+                style={{ padding: '6px 12px', minWidth: 'fit-content' }}
               >
                 <MapPin size={16} color="var(--primary)" />
-                <div>
-                  <div style={{ fontSize: 10, fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '0.05em', lineHeight: 1 }}>
-                    Deliver to
-                  </div>
-                  <div style={{
-                    fontSize: 'var(--text-sm)', fontWeight: 700, color: 'var(--primary)',
-                    maxWidth: 110, overflow: 'hidden', textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap', lineHeight: 1.3, marginTop: 2
-                  }}>
-                    {location}
-                  </div>
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ fontSize: 9, fontWeight: 700, color: 'var(--muted)', textTransform: 'uppercase', lineHeight: 1 }}>Deliver to</div>
+                  <div style={{ fontSize: '11px', fontWeight: 800, color: 'var(--primary)', maxWidth: 80, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginTop: 1 }}>{location}</div>
                 </div>
               </motion.button>
 
-              {/* Theme Toggle - Hidden on Mobile */}
+              {/* Theme Toggle */}
               <button 
-                className="header-btn-minimal hide-mob"
+                className="ha-btn"
                 onClick={() => setTheme(t => t === 'light' ? 'dark' : 'light')}
                 aria-label="Toggle Theme"
               >
-                {theme === 'light' ? <Moon size={20} strokeWidth={2.5} /> : <Sun size={20} strokeWidth={2.5} />}
+                {theme === 'light' ? <Moon size={18} strokeWidth={2.5} /> : <Sun size={18} strokeWidth={2.5} />}
               </button>
 
-              {/* Wishlist - Only visible when logged in */}
+              {/* Wishlist */}
               {user && (
-                <button 
-                  className="ha-btn hide-mob" 
-                  onClick={() => navigate('/wishlist')} 
-                  aria-label="Wishlist"
-                  style={{ position: 'relative' }}
-                >
-                  <motion.div whileHover={{ scale: 1.2, rotate: [0, -10, 10, 0] }}>
-                    <Heart size={20} fill={wishlist.length > 0 ? 'var(--error)' : 'none'} color={wishlist.length > 0 ? 'var(--error)' : 'currentColor'} />
+                <button className="ha-btn hide-mob" onClick={() => navigate('/wishlist')} aria-label="Wishlist">
+                  <motion.div whileHover={{ scale: 1.15 }}>
+                    <Heart size={18} fill={wishlist.length > 0 ? 'var(--error)' : 'none'} color={wishlist.length > 0 ? 'var(--error)' : 'currentColor'} />
                   </motion.div>
-                  {wishlist.length > 0 && (
-                    <span style={{
-                      position: 'absolute', top: 0, right: 0,
-                      background: 'var(--error)', color: '#fff',
-                      borderRadius: '50%', fontSize: 9, fontWeight: 900,
-                      width: 16, height: 16, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      boxShadow: '0 2px 4px rgba(239, 68, 68, 0.3)'
-                    }}>
-                      {wishlist.length}
-                    </span>
-                  )}
                 </button>
               )}
 
               {/* Auth / Profile */}
               {user ? (
                 <div className="profile-dropdown-wrap">
-                  <button className="ha-btn" style={{ width: 44, height: 44, borderRadius: '50%', overflow: 'hidden' }} aria-label="Profile">
+                  <button className="ha-btn" style={{ width: 40, height: 40, borderRadius: '50%', position: 'relative' }} aria-label="Profile">
                     <img
                       src={user.user_metadata?.avatar_url || `https://ui-avatars.com/api/?name=${user.user_metadata?.full_name || user.email}&background=0EB48F&color=fff`}
                       alt="Avatar"
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', border: '2px solid var(--primary)' }}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%', border: '2px solid var(--primary)' }}
                     />
                   </button>
                   <div className="profile-dropdown">
                     <div style={{ padding: '14px 18px 10px', borderBottom: '1px solid var(--border)' }}>
-                      <div style={{ fontSize: 'var(--text-xs)', color: 'var(--muted)', fontWeight: 600 }}>Signed in as</div>
-                      <div style={{ fontSize: 'var(--text-sm)', fontWeight: 700, color: 'var(--ink)', marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
+                        <div style={{ fontSize: 'var(--text-xs)', color: 'var(--muted)', fontWeight: 600 }}>Account</div>
+                      </div>
+                      <div style={{ fontSize: 'var(--text-sm)', fontWeight: 700, color: 'var(--ink)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                         {user.email}
                       </div>
                     </div>
@@ -323,10 +259,7 @@ export default function Header({ onCartOpen, onAuthOpen, onLocOpen, location }) 
                       <Package size={16} /> My Orders
                     </div>
                     <div className="pdd-item" onClick={() => navigate('/settings')}>
-                      <motion.div whileHover={{ rotate: 90 }} transition={{ type: 'spring' }} style={{ display: 'flex' }}>
-                         <Settings size={16} />
-                      </motion.div> 
-                      Settings
+                       <Settings size={16} /> Settings
                     </div>
                     <div className="pdd-divider" />
                     <div className="pdd-item sign-out" onClick={logout}>
@@ -336,44 +269,25 @@ export default function Header({ onCartOpen, onAuthOpen, onLocOpen, location }) 
                 </div>
               ) : (
                 <motion.button
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="btn btn-primary login-btn-premium"
+                  whileHover={{ scale: 1.02 }}
+                  className="btn btn-primary"
                   onClick={() => navigate('/login')}
+                  style={{ padding: '10px 20px', fontSize: 'var(--text-sm)' }}
                 >
-                  <span>Log In / Sign Up</span>
+                  Log In
                 </motion.button>
               )}
 
-              {/* Cart - Only visible when logged in */}
+              {/* Cart */}
               {user && (
                 <button
-                  className="btn btn-primary cart-btn-premium"
+                  className="btn btn-primary"
                   onClick={onCartOpen}
-                  aria-label={`Cart — ${totals.itemCount} items`}
+                  style={{ padding: '10px 18px', borderRadius: 'var(--r-md)', boxShadow: 'var(--sh-md)' }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <motion.div whileHover={{ scale: 1.1, rotate: -5 }}>
-                      <ShoppingCart size={18} strokeWidth={2.5} />
-                    </motion.div>
-                    <span className="cart-label">My Cart</span>
-                  </div>
+                  <ShoppingCart size={18} strokeWidth={2.5} />
                   {totals.itemCount > 0 && (
-                    <span style={{
-                      background: '#fff',
-                      color: 'var(--primary)',
-                      borderRadius: 'var(--r-full)',
-                      fontSize: 10,
-                      fontWeight: 900,
-                      minWidth: 20,
-                      height: 20,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      padding: '0 5px',
-                      marginLeft: 2,
-                      boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-                    }}>
+                    <span style={{ background: '#fff', color: 'var(--primary)', borderRadius: 'var(--r-full)', fontSize: 10, fontWeight: 900, minWidth: 18, height: 18, display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: 4 }}>
                       {totals.itemCount}
                     </span>
                   )}
@@ -409,20 +323,14 @@ export default function Header({ onCartOpen, onAuthOpen, onLocOpen, location }) 
               {NAV_LINKS.map(link => (
                 <li key={link.name} className="nav-item">
                   <button
-                    className={`nav-link ${link.isHighlight ? 'nav-link-premium' : ''}`}
+                    className="nav-link"
                     onClick={() => navigate(link.path || `/products?cat=${link.cat}`)}
                   >
                     {link.icon && <link.icon size={15} style={{ marginRight: 6 }} />}
-                    {link.isHighlight && <Crown size={14} style={{ marginRight: 6 }} />}
                     {link.name}
                   </button>
                 </li>
               ))}
-              <li className="nav-item" style={{ marginLeft: 'auto' }}>
-                <Link to="/premium" className="nav-link-premium-tag">
-                  <span style={{ fontSize: '10px', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.05em' }}>FreshMart Premium</span>
-                </Link>
-              </li>
             </ul>
           </div>
         </nav>
@@ -448,7 +356,9 @@ export default function Header({ onCartOpen, onAuthOpen, onLocOpen, location }) 
               className="mob-drawer"
             >
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 40 }}>
-                <div className="logo-text">Fresh<span>Mart</span></div>
+                <div className="logo-text">
+                  Fresh<span>Mart</span>
+                </div>
                 <button
                   onClick={() => setMobMenuOpen(false)}
                   style={{ background: 'var(--canvas)', border: 'none', borderRadius: 'var(--r)', padding: 8, color: 'var(--ink)', cursor: 'pointer' }}

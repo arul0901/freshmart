@@ -132,7 +132,7 @@ export default function Listing() {
         </div>
       </div>
 
-      <button className="btn btn-outline" style={{ width: '100%', marginTop: '20px' }} onClick={clearFilters}>Reset All Filters</button>
+      <button className="btn btn-primary" style={{ width: '100%', marginTop: '20px', borderRadius: 'var(--r-squircle)' }} onClick={clearFilters}>Reset All Filters</button>
     </div>
   )
 
@@ -155,7 +155,7 @@ export default function Listing() {
         <div className="listing-main">
           {/* Desktop Filters */}
           <aside className="sidebar-filters">
-            <div className="card" style={{ padding: 'var(--sp-6)', borderRadius: 'var(--r-2xl)', background: 'var(--surface)' }}>
+            <div className="card" style={{ padding: 'var(--sp-6)', borderRadius: 'var(--r-squircle)', background: 'var(--surface)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: 'var(--sp-6)', fontWeight: 800, color: 'var(--ink)', fontSize: 'var(--text-md)' }}>
                 <SlidersHorizontal size={18} color="var(--primary)" /> Filters
               </div>
@@ -202,7 +202,7 @@ export default function Listing() {
                 {loading ? (
                   [...Array(8)].map((_, i) => (
                     <div key={i} className="card" style={{ padding: 'var(--sp-5)', border: 'none', background: 'transparent' }}>
-                      <Skeleton height="240px" borderRadius="var(--r-xl)" />
+                      <Skeleton height="240px" borderRadius="var(--r-squircle)" />
                       <Skeleton height="24px" width="70%" style={{ marginTop: 20 }} />
                       <Skeleton height="16px" width="40%" style={{ marginTop: 10 }} />
                     </div>
@@ -249,8 +249,8 @@ export default function Listing() {
                 top: 'auto', 
                 height: 'auto', 
                 maxHeight: '90vh',
-                borderTopLeftRadius: 'var(--r-2xl)', 
-                borderTopRightRadius: 'var(--r-2xl)',
+                borderTopLeftRadius: 'var(--r-squircle)', 
+                borderTopRightRadius: 'var(--r-squircle)',
                 padding: 'var(--sp-8)',
                 width: '100%'
               }}
@@ -269,7 +269,7 @@ export default function Listing() {
               </div>
               <button 
                 className="btn btn-primary" 
-                style={{ width: '100%', marginTop: '32px', height: '56px', fontSize: 'var(--text-md)' }} 
+                style={{ width: '100%', marginTop: '32px', height: '56px', borderRadius: 'var(--r-squircle)', fontSize: 'var(--text-md)' }} 
                 onClick={() => setShowMobFilters(false)}
               >
                 Show Results ({products.length})

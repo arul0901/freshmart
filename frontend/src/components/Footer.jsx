@@ -13,7 +13,7 @@ export default function Footer() {
               Fresh<span style={{ color: 'var(--primary-100)' }}>Mart</span>
             </div>
             <p style={{ fontSize: '0.9rem', lineHeight: 1.8, marginBottom: 32, maxWidth: 300 }}>
-              India's most trusted premium grocery delivery platform. Farm-fresh produce, daily essentials, and gourmet selections — delivered with perfection.
+              India's most trusted grocery delivery platform. Farm-fresh produce, daily essentials, and gourmet selections — delivered fresh to your door.
             </p>
             <div style={{ display: 'flex', gap: 16 }}>
               {[Share2, Camera, MessageCircle, Briefcase, Tv].map((Icon, idx) => (

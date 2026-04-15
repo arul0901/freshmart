@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import axios from 'axios'
 import { useCart } from '../context/CartContext'
+import { aiAPI } from '../api'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Send, X, MessageSquare, Bot, Sparkles, Minus } from 'lucide-react'
 
@@ -50,7 +51,7 @@ export default function AIChat() {
     setLoading(true)
 
     try {
-      const res = await axios.post(`${API_BASE}/ai/chat`, {
+      const res = await aiAPI.chat({
         message: input,
         history: messages.slice(1).map(m => ({ role: m.role, content: m.content }))
       })
@@ -111,17 +112,15 @@ export default function AIChat() {
             <div ref={chatBodyRef} style={{ flex: 1, overflowY: 'auto', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', background: 'var(--bg)' }}>
               {messages.map((m, i) => (
                 <div key={i} style={{ 
-                  alignSelf: m.role === 'bot' ? 'flex-start' : 'flex-end',
-                  maxWidth: '85%',
-                  padding: '12px 16px',
-                  borderRadius: m.role === 'bot' ? '16px 16px 16px 4px' : '16px 16px 4px 16px',
-                  background: m.role === 'bot' ? 'var(--surface)' : 'var(--primary)',
-                  color: m.role === 'bot' ? 'var(--ink)' : '#fff',
-                  fontSize: '0.9rem',
-                  lineHeight: 1.5,
-                  fontWeight: 500,
-                  boxShadow: 'var(--sh-sm)',
-                  border: m.role === 'bot' ? '1px solid var(--border)' : 'none'
+                   padding: '12px 18px',
+                   borderRadius: m.role === 'bot' ? '20px 20px 20px 4px' : '20px 20px 4px 20px',
+                   background: m.role === 'bot' ? 'var(--surface)' : 'var(--primary)',
+                   color: m.role === 'bot' ? 'var(--ink)' : '#fff',
+                   fontSize: '1rem', /* Increased from 0.9rem */
+                   lineHeight: 1.6,
+                   fontWeight: 600, /* Increased from 500 */
+                   boxShadow: 'var(--sh-md)',
+                   border: m.role === 'bot' ? '1.5px solid var(--border)' : 'none'
                 }}>
                   {m.role === 'bot' ? <TypewriterMsg content={m.content} isNew={m.isNew} /> : m.content}
                 </div>
@@ -139,8 +138,9 @@ export default function AIChat() {
                 onChange={e => setInput(e.target.value)}
                 placeholder="Talk to FreshBot..."
                 style={{ 
-                  flex: 1, padding: '12px 16px', borderRadius: '12px', border: '1.5px solid var(--border)', 
-                  outline: 'none', fontSize: '0.9rem', background: 'var(--bg)', color: 'var(--ink)'
+                  flex: 1, padding: '14px 18px', borderRadius: '14px', border: '1.5px solid var(--border)', 
+                  outline: 'none', fontSize: '1rem', background: 'var(--bg)', color: 'var(--ink)',
+                  fontWeight: 600
                 }}
               />
               <motion.button 

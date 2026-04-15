@@ -80,7 +80,7 @@ export default function ProductDetail() {
             className="main-img-wrap" 
           >
             <div style={{ position: 'absolute', top: '20%', left: '20%', width: '60%', height: '60%', background: 'var(--primary-100)', filter: 'blur(100px)', opacity: 0.3, zIndex: 0 }} />
-            <img src={product.image} alt={product.name} style={{ maxWidth: '80%', maxHeight: '400px', objectFit: 'contain', position: 'relative', zIndex: 1 }} />
+            <img src={product.image} alt={product.name} style={{ width: '100%', maxHeight: '400px', objectFit: 'contain', position: 'relative', zIndex: 1, borderRadius: 'var(--r-squircle)' }} />
             <button 
               onClick={() => toggleWishlist(product)}
               style={{ 
@@ -93,10 +93,10 @@ export default function ProductDetail() {
             </button>
           </motion.div>
           
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginTop: '16px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginTop: '12px' }}>
             {[product.image, product.image, product.image, product.image].map((img, i) => (
-              <div key={i} style={{ padding: '10px', background: '#fff', borderRadius: '16px', border: i === 0 ? '2px solid var(--primary)' : '1px solid var(--border)', cursor: 'pointer' }}>
-                <img src={img} style={{ width: '100%', height: '60px', objectFit: 'contain', opacity: i === 0 ? 1 : 0.5 }} />
+              <div key={i} style={{ padding: '8px', background: '#fff', borderRadius: 'var(--r-squircle)', border: i === 0 ? '2px solid var(--primary)' : '1px solid var(--border)', cursor: 'pointer', overflow: 'hidden' }}>
+                <img src={img} style={{ width: '100%', height: '50px', objectFit: 'contain', opacity: i === 0 ? 1 : 0.5 }} />
               </div>
             ))}
           </div>
@@ -146,7 +146,8 @@ export default function ProductDetail() {
               onClick={handleAdd}
               className="btn btn-primary"
               style={{ 
-                flex: 1, minWidth: '240px', height: '60px', borderRadius: 'var(--r-md)', border: 'none', fontWeight: 800, fontSize: 'var(--text-md)', 
+                width: '100%', padding: '20px', background: 'var(--primary-900)', color: '#fff', 
+                border: 'none', borderRadius: 'var(--r-squircle)', fontWeight: 800, fontSize: '1.1rem',
                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px',
                 boxShadow: 'var(--sh-md)', cursor: 'pointer'
               }}
@@ -155,12 +156,12 @@ export default function ProductDetail() {
             </motion.button>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px' }}>
             {[
               { icon: <Truck />, title: 'Fresh Delivery', sub: 'Within 2 hours' },
               { icon: <ShieldCheck />, title: 'Quality Assured', sub: '100% Organic' }
             ].map((x, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '20px', background: 'var(--pure)', borderRadius: '20px', border: '1px solid var(--border-light)' }}>
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '20px', background: 'var(--pure)', borderRadius: 'var(--r-squircle)', border: '1px solid var(--border-light)' }}>
                 <div style={{ color: 'var(--primary)' }}>{x.icon}</div>
                 <div>
                   <div style={{ fontWeight: 800, fontSize: '0.85rem' }}>{x.title}</div>

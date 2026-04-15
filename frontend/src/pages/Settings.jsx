@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { useNotif } from '../context/NotifContext'
 import { motion, AnimatePresence } from 'framer-motion'
-import { 
-  User, Settings as SettingsIcon, Bell, Shield, LogOut, 
-  ChevronRight, Camera, Moon, Sun, Globe, Mail, Lock, Crown, Check
+import {
+  User, Settings as SettingsIcon, Bell, Shield, LogOut,
+  Camera, Moon, Sun, Mail, Lock, Check
 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
@@ -14,9 +14,9 @@ export default function Settings() {
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState('account')
   const [theme, setTheme] = useState(() => localStorage.getItem('fm_theme') || 'dark')
-  
+
   const [formData, setFormData] = useState({
-    name: user?.user_metadata?.full_name || 'Arul Kumar',
+    name: user?.user_metadata?.full_name || '',
     email: user?.email || '',
     language: 'English',
     orderUpdates: true,
@@ -47,14 +47,14 @@ export default function Settings() {
         <div style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)', color: 'var(--muted)' }}>
           {icon}
         </div>
-        <input 
+        <input
           type={type}
           value={value}
           onChange={onChange}
           disabled={disabled}
           placeholder={placeholder}
           className="search-input"
-          style={{ paddingLeft: 48, borderRadius: 'var(--r-md)', height: 52, background: disabled ? 'var(--bg-alt)' : 'var(--surface)' }}
+          style={{ paddingLeft: 48, borderRadius: 'var(--r-md)', height: 52, background: disabled ? 'var(--bg-alt)' : 'var(--surface)', width: '100%' }}
         />
       </div>
     </div>
@@ -66,15 +66,15 @@ export default function Settings() {
         <div style={{ fontWeight: 700, color: 'var(--ink)' }}>{label}</div>
         <div style={{ fontSize: 'var(--text-xs)', color: 'var(--muted)', marginTop: 2 }}>{desc}</div>
       </div>
-      <button 
+      <button
         onClick={onToggle}
-        style={{ 
-          width: 52, height: 28, borderRadius: 20, 
+        style={{
+          width: 52, height: 28, borderRadius: 20,
           background: active ? 'var(--primary)' : 'var(--border)',
           position: 'relative', border: 'none', cursor: 'pointer', transition: '0.3s'
         }}
       >
-        <motion.div 
+        <motion.div
           animate={{ x: active ? 24 : 4 }}
           style={{ width: 20, height: 20, background: '#fff', borderRadius: '50%', position: 'absolute', top: 4 }}
         />
@@ -84,13 +84,10 @@ export default function Settings() {
 
   const tabs = [
     { id: 'account', label: 'Account', icon: <User size={18} /> },
-    { id: 'membership', label: 'Membership', icon: <Crown size={18} /> },
     { id: 'preferences', label: 'Preferences', icon: <SettingsIcon size={18} /> },
     { id: 'notifications', label: 'Notifications', icon: <Bell size={18} /> },
     { id: 'security', label: 'Security', icon: <Shield size={18} /> }
   ]
-
-  const isPremium = user?.user_metadata?.is_premium || false
 
   return (
     <div className="container" style={{ padding: '80px 24px', minHeight: '85vh' }}>
@@ -99,7 +96,7 @@ export default function Settings() {
           Settings
         </h1>
         <p style={{ color: 'var(--muted)', fontSize: 'var(--text-lg)', fontWeight: 600, marginTop: 8 }}>
-          Manage your account preferences and digital presence.
+          Manage your account preferences and security.
         </p>
       </div>
 
@@ -108,12 +105,12 @@ export default function Settings() {
         <aside style={{ position: 'sticky', top: 100 }}>
           <div style={{ padding: 8, borderRadius: 'var(--r-2xl)', background: 'var(--surface)', border: '1.5px solid var(--border)', boxShadow: 'var(--sh-md)' }}>
             {tabs.map(tab => (
-              <button 
+              <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                style={{ 
-                  display: 'flex', alignItems: 'center', gap: 12, width: '100%', 
-                  padding: '16px 20px', borderRadius: 'var(--r-xl)', border: 'none', 
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 12, width: '100%',
+                  padding: '16px 20px', borderRadius: 'var(--r-xl)', border: 'none',
                   background: activeTab === tab.id ? 'var(--primary)' : 'transparent',
                   color: activeTab === tab.id ? '#fff' : 'var(--ink)',
                   fontWeight: 800, fontSize: 'var(--text-sm)', cursor: 'pointer',
@@ -125,11 +122,11 @@ export default function Settings() {
               </button>
             ))}
             <div style={{ height: 1, background: 'var(--border)', margin: '12px 20px' }} />
-            <button 
+            <button
               onClick={logout}
-              style={{ 
-                display: 'flex', alignItems: 'center', gap: 12, width: '100%', 
-                padding: '16px 20px', borderRadius: 'var(--r-xl)', border: 'none', 
+              style={{
+                display: 'flex', alignItems: 'center', gap: 12, width: '100%',
+                padding: '16px 20px', borderRadius: 'var(--r-xl)', border: 'none',
                 background: 'transparent', color: 'var(--error)',
                 fontWeight: 800, fontSize: 'var(--text-sm)', cursor: 'pointer'
               }}
@@ -145,21 +142,20 @@ export default function Settings() {
           <AnimatePresence mode="wait">
             {activeTab === 'account' && (
               <motion.div key="account" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
-                <SectionTitle><User size={22} color="var(--primary)" /> Profile Identity</SectionTitle>
-                
+                <SectionTitle><User size={22} color="var(--primary)" /> Profile</SectionTitle>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 32, marginBottom: 48, background: 'var(--bg-alt)', padding: 24, borderRadius: 'var(--r-2xl)', border: '1px solid var(--border)' }}>
                   <div style={{ position: 'relative' }}>
-                    <img 
+                    <img
                       src={user?.user_metadata?.avatar_url || `https://ui-avatars.com/api/?name=${formData.name}&background=0EB48F&color=fff`}
                       alt="Avatar"
                       style={{ width: 110, height: 110, borderRadius: '40px', border: '5px solid var(--surface)', objectFit: 'cover', boxShadow: 'var(--sh-md)' }}
                     />
-                    <motion.button 
+                    <motion.button
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
-                      style={{ 
-                        position: 'absolute', bottom: -5, right: -5, 
-                        width: 40, height: 40, borderRadius: '14px', 
+                      style={{
+                        position: 'absolute', bottom: -5, right: -5,
+                        width: 40, height: 40, borderRadius: '14px',
                         background: 'var(--primary)', color: '#fff', border: '3px solid var(--surface)',
                         display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: 'var(--sh-md)', cursor: 'pointer'
                       }}
@@ -173,82 +169,28 @@ export default function Settings() {
                     <div className="badge badge-delivered" style={{ marginTop: 12, fontSize: 10, fontWeight: 900 }}>VERIFIED CUSTOMER</div>
                   </div>
                 </div>
-
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
-                  <InputGroup 
-                    label="Display Name" 
-                    icon={<User size={18} />} 
-                    value={formData.name} 
-                    onChange={e => setFormData({...formData, name: e.target.value})} 
-                  />
-                  <InputGroup 
-                    label="Primary Email" 
-                    icon={<Mail size={18} />} 
-                    value={formData.email} 
-                    disabled 
-                  />
+                  <InputGroup label="Display Name" icon={<User size={18} />} value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} />
+                  <InputGroup label="Email Address" icon={<Mail size={18} />} value={formData.email} disabled />
                 </div>
-                <button className="btn btn-primary" onClick={handleSave} style={{ marginTop: 24, padding: '16px 40px', borderRadius: 'var(--r-xl)', fontSize: 'var(--text-sm)', fontWeight: 900 }}>Update Profile</button>
-              </motion.div>
-            )}
-
-            {activeTab === 'membership' && (
-              <motion.div key="membership" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
-                <SectionTitle><Crown size={22} color="var(--primary)" /> Membership Status</SectionTitle>
-                
-                <div style={{ 
-                  background: isPremium ? 'var(--primary)' : 'var(--bg-alt)', 
-                  padding: 40, borderRadius: 'var(--r-2xl)', color: isPremium ? '#fff' : 'var(--ink)',
-                  border: isPremium ? 'none' : '1.5px dashed var(--border)',
-                  textAlign: 'center', marginBottom: 32
-                }}>
-                  <Crown size={48} style={{ marginBottom: 16, color: isPremium ? '#fff' : 'var(--muted)' }} />
-                  <h3 style={{ fontSize: 'var(--text-2xl)', fontWeight: 900, marginBottom: 8 }}>
-                    {isPremium ? 'FreshMart Premium Active' : 'Basic Membership'}
-                  </h3>
-                  <p style={{ fontSize: 'var(--text-md)', opacity: 0.8, fontWeight: 600, maxWidth: 400, margin: '0 auto 24px' }}>
-                    {isPremium 
-                      ? 'Enjoy hyper-fast delivery, exclusive pricing and zero delivery fees on all orders.'
-                      : 'Unlock the full potential of FreshMart with a Premium subscription.'
-                    }
-                  </p>
-                  <button 
-                  onClick={() => navigate('/premium')}
-                  className="btn" 
-                  style={{ background: isPremium ? '#fff' : 'var(--primary)', color: isPremium ? 'var(--primary)' : '#fff', padding: '14px 32px', fontWeight: 900, borderRadius: 'var(--r-lg)' }}>
-                    {isPremium ? 'Manage Subscription' : 'Upgrade to Premium'}
-                  </button>
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
-                  {[
-                    { label: 'Hyper-Fast Delivery', active: isPremium },
-                    { label: 'Exclusive Shop', active: isPremium },
-                    { label: 'Zero Delivery Fees', active: isPremium },
-                    { label: 'Concierge Support', active: isPremium }
-                  ].map((benefit, i) => (
-                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '16px 20px', background: 'var(--canvas)', borderRadius: 'var(--r-xl)', border: '1px solid var(--border)', opacity: benefit.active ? 1 : 0.5 }}>
-                      <Check size={18} color={benefit.active ? 'var(--primary)' : 'var(--muted)'} strokeWidth={3} />
-                      <span style={{ fontWeight: 800, fontSize: 'var(--text-sm)', color: 'var(--ink)' }}>{benefit.label}</span>
-                    </div>
-                  ))}
-                </div>
+                <button className="btn btn-primary" onClick={handleSave} style={{ marginTop: 24, padding: '16px 40px', borderRadius: 'var(--r-xl)', fontSize: 'var(--text-sm)', fontWeight: 900 }}>
+                  Save Changes
+                </button>
               </motion.div>
             )}
 
             {activeTab === 'preferences' && (
               <motion.div key="preferences" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
-                <SectionTitle><SettingsIcon size={22} color="var(--primary)" /> App Settings</SectionTitle>
-                
+                <SectionTitle><SettingsIcon size={22} color="var(--primary)" /> App Preferences</SectionTitle>
                 <div style={{ padding: '0 8px' }}>
-                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '24px 0', borderBottom: '1.5px solid var(--border)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '24px 0', borderBottom: '1.5px solid var(--border)' }}>
                     <div>
-                      <div style={{ fontWeight: 900, color: 'var(--ink)', fontSize: 'var(--text-md)' }}>Visual Appearance</div>
-                      <div style={{ fontSize: 'var(--text-sm)', color: 'var(--muted)', marginTop: 4, fontWeight: 600 }}>{theme === 'dark' ? 'Exclusive Dark Mode' : 'Clean Light Mode'}</div>
+                      <div style={{ fontWeight: 900, color: 'var(--ink)', fontSize: 'var(--text-md)' }}>Visual Theme</div>
+                      <div style={{ fontSize: 'var(--text-sm)', color: 'var(--muted)', marginTop: 4, fontWeight: 600 }}>{theme === 'dark' ? 'Dark Mode Active' : 'Light Mode Active'}</div>
                     </div>
-                    <button 
+                    <button
                       onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
-                      style={{ 
+                      style={{
                         padding: '12px 24px', borderRadius: 'var(--r-lg)', border: '1.5px solid var(--border)',
                         background: 'var(--bg-alt)', color: 'var(--ink)', fontWeight: 900,
                         display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer',
@@ -259,17 +201,16 @@ export default function Settings() {
                       Toggle Theme
                     </button>
                   </div>
-
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '24px 0' }}>
                     <div>
-                      <div style={{ fontWeight: 900, color: 'var(--ink)', fontSize: 'var(--text-md)' }}>Regional Language</div>
+                      <div style={{ fontWeight: 900, color: 'var(--ink)', fontSize: 'var(--text-md)' }}>Language</div>
                       <div style={{ fontSize: 'var(--text-sm)', color: 'var(--muted)', marginTop: 4, fontWeight: 600 }}>Localized experience settings</div>
                     </div>
-                    <select 
-                      className="search-input" 
+                    <select
+                      className="search-input"
                       style={{ width: 160, height: 48, borderRadius: 'var(--r-lg)', padding: '0 16px', fontWeight: 900, fontSize: 'var(--text-sm)', background: 'var(--canvas)', border: '1.5px solid var(--border)' }}
                       value={formData.language}
-                      onChange={e => setFormData({...formData, language: e.target.value})}
+                      onChange={e => setFormData({ ...formData, language: e.target.value })}
                     >
                       <option>English (US)</option>
                       <option>Tamil (Ta)</option>
@@ -282,47 +223,37 @@ export default function Settings() {
 
             {activeTab === 'notifications' && (
               <motion.div key="notifications" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
-                <SectionTitle><Bell size={22} color="var(--primary)" /> Intelligent Alerts</SectionTitle>
+                <SectionTitle><Bell size={22} color="var(--primary)" /> Notification Preferences</SectionTitle>
                 <div style={{ display: 'grid', gap: 8 }}>
-                  <Toggle 
-                    label="Live Order Tracking" 
-                    desc="Push notifications when your farm-fresh package is in transit"
-                    active={formData.orderUpdates}
-                    onToggle={() => setFormData({...formData, orderUpdates: !formData.orderUpdates})}
-                  />
+                  <Toggle label="Order Updates" desc="Get notified when your order status changes" active={formData.orderUpdates} onToggle={() => setFormData({ ...formData, orderUpdates: !formData.orderUpdates })} />
                   <div style={{ height: 1, background: 'var(--border)', margin: '8px 0' }} />
-                  <Toggle 
-                    label="Seasonal Flash Deals" 
-                    desc="Be the first to know about rare fruit arrivals and organic discounts"
-                    active={formData.promoOffers}
-                    onToggle={() => setFormData({...formData, promoOffers: !formData.promoOffers})}
-                  />
+                  <Toggle label="Flash Deals & Offers" desc="Be first to know about seasonal sales and discounts" active={formData.promoOffers} onToggle={() => setFormData({ ...formData, promoOffers: !formData.promoOffers })} />
                 </div>
               </motion.div>
             )}
 
             {activeTab === 'security' && (
               <motion.div key="security" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
-                <SectionTitle><Shield size={22} color="var(--primary)" /> Security Citadel</SectionTitle>
-                
+                <SectionTitle><Shield size={22} color="var(--primary)" /> Security</SectionTitle>
                 <div style={{ display: 'grid', gap: 40 }}>
                   <div style={{ background: 'var(--bg-alt)', padding: 32, borderRadius: 'var(--r-2xl)', border: '1px solid var(--border)' }}>
                     <h4 style={{ fontWeight: 900, fontSize: '1.1rem', color: 'var(--ink)', marginBottom: 24, display: 'flex', alignItems: 'center', gap: 10 }}>
                       <Lock size={18} /> Update Password
                     </h4>
                     <div style={{ display: 'grid', gap: 16 }}>
-                      <InputGroup label="Secure Current Password" type="password" icon={<Lock size={18} />} placeholder="••••••••" />
-                      <InputGroup label="New Security Key" type="password" icon={<Shield size={18} />} placeholder="••••••••" />
+                      <InputGroup label="Current Password" type="password" icon={<Lock size={18} />} placeholder="••••••••" />
+                      <InputGroup label="New Password" type="password" icon={<Shield size={18} />} placeholder="••••••••" />
                     </div>
-                    <button className="btn btn-primary" style={{ marginTop: 8, padding: '14px 32px', borderRadius: 'var(--r-lg)', fontWeight: 900 }}>Update Security</button>
+                    <button className="btn btn-primary" style={{ marginTop: 8, padding: '14px 32px', borderRadius: 'var(--r-lg)', fontWeight: 900 }}>
+                      Update Password
+                    </button>
                   </div>
-                  
                   <div style={{ padding: '0 8px' }}>
-                    <h4 style={{ fontWeight: 900, fontSize: '1.1rem', color: 'var(--ink)', marginBottom: 8 }}>Digital Sovereignty</h4>
-                    <p style={{ color: 'var(--muted)', fontSize: 'var(--text-sm)', marginBottom: 24, fontWeight: 600 }}>We respect your privacy. Manage or erase your data from our servers instantly.</p>
+                    <h4 style={{ fontWeight: 900, fontSize: '1.1rem', color: 'var(--ink)', marginBottom: 8 }}>Account Data</h4>
+                    <p style={{ color: 'var(--muted)', fontSize: 'var(--text-sm)', marginBottom: 24, fontWeight: 600 }}>We respect your privacy. You can request deletion of all your data at any time.</p>
                     <div style={{ display: 'flex', gap: 20 }}>
-                       <button className="btn btn-outline" style={{ border: 'none', color: 'var(--error)', background: 'var(--error-bg)', fontWeight: 800 }}>Permanently Erase Profile</button>
-                       <button className="btn btn-ghost" style={{ fontWeight: 800 }}>Terms of Service</button>
+                      <button className="btn btn-outline" style={{ border: 'none', color: 'var(--error)', background: 'var(--error-bg)', fontWeight: 800 }}>Delete Account</button>
+                      <button className="btn btn-ghost" style={{ fontWeight: 800 }}>Terms of Service</button>
                     </div>
                   </div>
                 </div>

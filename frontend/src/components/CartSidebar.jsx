@@ -214,39 +214,39 @@ export default function CartSidebar({ open, onClose, onAuthOpen }) {
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                           <div style={{
-                            display: 'flex', alignItems: 'center',
-                            background: 'var(--primary)',
-                            borderRadius: 'var(--r-md)',
-                            padding: 2,
-                            gap: 2,
-                            boxShadow: '0 4px 10px rgba(var(--primary-rgb), 0.15)'
-                          }}>
-                            <button
-                              onClick={() => updateQty(item.id, -1)}
-                              style={{
-                                width: 28, height: 28, borderRadius: 'var(--r-sm)',
-                                border: 'none', background: 'none',
-                                cursor: 'pointer', color: '#fff',
-                                display: 'flex', alignItems: 'center', justifyContent: 'center'
-                              }}
-                            >
-                              <Minus size={12} strokeWidth={3} />
-                            </button>
-                            <span style={{ width: 28, textAlign: 'center', fontWeight: 900, fontSize: 'var(--text-sm)', color: '#fff' }}>
-                              {item.qty}
-                            </span>
-                            <button
-                              onClick={() => updateQty(item.id, 1)}
-                              style={{
-                                width: 28, height: 28, borderRadius: 'var(--r-sm)',
-                                border: 'none', background: 'none',
-                                cursor: 'pointer', color: '#fff',
-                                display: 'flex', alignItems: 'center', justifyContent: 'center'
-                              }}
-                            >
-                              <Plus size={12} strokeWidth={3} />
-                            </button>
-                          </div>
+                              display: 'flex', alignItems: 'center',
+                              background: 'var(--primary)',
+                              borderRadius: 'var(--r-md)',
+                              padding: 2,
+                              gap: 2,
+                              boxShadow: '0 4px 10px rgba(var(--primary-rgb), 0.15)'
+                            }}>
+                              <button
+                                onClick={() => updateQty(item.id, -1)}
+                                style={{
+                                  width: 28, height: 28, borderRadius: 'var(--r-sm)',
+                                  border: 'none', background: 'none',
+                                  cursor: 'pointer', color: '#fff',
+                                  display: 'flex', alignItems: 'center', justifyContent: 'center'
+                                }}
+                              >
+                                <Minus size={12} strokeWidth={3} />
+                              </button>
+                              <span style={{ width: 28, textAlign: 'center', fontWeight: 900, fontSize: 'var(--text-sm)', color: '#fff' }}>
+                                {item.qty}
+                              </span>
+                              <button
+                                onClick={() => updateQty(item.id, 1)}
+                                style={{
+                                  width: 28, height: 28, borderRadius: 'var(--r-sm)',
+                                  border: 'none', background: 'none',
+                                  cursor: 'pointer', color: '#fff',
+                                  display: 'flex', alignItems: 'center', justifyContent: 'center'
+                                }}
+                              >
+                                <Plus size={12} strokeWidth={3} />
+                              </button>
+                            </div>
                           <div style={{ fontWeight: 900, color: 'var(--ink)', fontSize: 'var(--text-md)', letterSpacing: '-0.01em' }}>
                             ₹{item.price * item.qty}
                           </div>

@@ -76,16 +76,16 @@ const HeroBanner = ({ onShop, onSignup }) => {
           <h1 style={{ 
             fontSize: 'clamp(3rem, 8vw, 5.5rem)', 
             fontWeight: 900, 
-            color: 'var(--ink)', 
+            color: '#fff', /* Force white */
             lineHeight: 1.02, 
             marginBottom: '24px', 
             letterSpacing: '-0.04em' 
           }}>
-            Freshness delivered <br/> to your <span style={{ color: 'var(--primary)' }}>Doorstep</span>
+            Freshness delivered <br/> to your <span style={{ color: 'var(--accent)' }}>Doorstep</span>
           </h1>
           <p style={{ 
             fontSize: 'clamp(1.1rem, 2vw, 1.4rem)', 
-            color: 'var(--muted)', 
+            color: 'rgba(255,255,255,0.7)', /* Force light muted */
             marginBottom: '48px', 
             maxWidth: '650px', 
             margin: '0 auto 48px',
@@ -102,7 +102,8 @@ const HeroBanner = ({ onShop, onSignup }) => {
               style={{ 
                 padding: '20px 48px', fontSize: 'var(--text-md)', 
                 borderRadius: 'var(--r-md)', border: 'none', 
-                fontWeight: 900, cursor: 'pointer', boxShadow: 'var(--sh-lg)' 
+                fontWeight: 900, cursor: 'pointer', boxShadow: 'var(--sh-lg)',
+                background: 'var(--accent)', color: 'var(--primary-900)' /* Premium contrast */
               }}
             >
               Shop Now
@@ -114,7 +115,7 @@ const HeroBanner = ({ onShop, onSignup }) => {
               className="btn btn-outline"
               style={{ 
                 padding: '18px 46px', fontSize: 'var(--text-md)', background: 'transparent', 
-                color: 'var(--ink)', borderRadius: 'var(--r-md)', 
+                color: '#fff', borderRadius: 'var(--r-md)', borderColor: 'rgba(255,255,255,0.3)',
                 fontWeight: 800, cursor: 'pointer', backdropFilter: 'blur(10px)' 
               }}
             >

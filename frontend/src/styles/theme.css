@@ -49,14 +49,15 @@
   --sp-12: 48px;
   --sp-16: 64px;
 
-  /* ── Border Radius (2.0 Upgrade: Squircle) ── */
-  --r-xs  : 8px;
-  --r-sm  : 12px;
-  --r     : 16px;
-  --r-md  : 20px;
-  --r-lg  : 24px;
-  --r-xl  : 28px;
-  --r-2xl : 32px;
+  /* ── Border Radius (2.0 Upgrade: Unified Squircle) ── */
+  --r-xs  : 6px;
+  --r-sm  : 10px;
+  --r     : 14px;
+  --r-md  : 18px;
+  --r-lg  : 22px;
+  --r-xl  : 26px;
+  --r-2xl : 30px;
+  --r-squircle: 22px; /* The new standard for cards & major components */
   --r-full: 9999px;
 
   /* ── Typography (Responsive with clamp) ── */
@@ -130,6 +131,16 @@
   --primary     : var(--p500);
   --primary-light: var(--p100);
   --primary-hover: var(--p600);
+  --primary-50    : var(--p50);
+  --primary-100   : var(--p100);
+  --primary-200   : var(--p100); /* Fallback */
+  --primary-300   : var(--p300);
+  --primary-400   : var(--p400);
+  --primary-500   : var(--p500);
+  --primary-600   : var(--p600);
+  --primary-700   : var(--p700);
+  --primary-800   : var(--p800);
+  --primary-900   : var(--p900);
 
   --primary-rgb  : 229, 170, 112;
   --surface-rgb  : 255, 255, 255;
@@ -180,6 +191,16 @@
   --primary     : var(--p500);
   --primary-light: rgba(229, 170, 112, 0.15);
   --primary-hover: var(--p400);
+  --primary-50    : rgba(229, 170, 112, 0.05);
+  --primary-100   : rgba(229, 170, 112, 0.1);
+  --primary-200   : rgba(229, 170, 112, 0.15);
+  --primary-300   : rgba(229, 170, 112, 0.2);
+  --primary-400   : var(--p400);
+  --primary-500   : var(--p500);
+  --primary-600   : var(--p600);
+  --primary-700   : var(--p700);
+  --primary-800   : var(--p800);
+  --primary-900   : var(--p900);
 
   --primary-rgb  : 229, 170, 112;
   --surface-rgb  : 37, 31, 28;

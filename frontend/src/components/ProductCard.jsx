@@ -88,9 +88,9 @@ export default function ProductCard({ product }) {
       transition={{ duration: 0.3 }}
       className="product-card" 
       onClick={() => navigate(`/products/${product.id}`)}
-      style={{ position: 'relative' }}
+      style={{ position: 'relative', borderRadius: 'var(--r-squircle)' }}
     >
-      <div className="product-img-wrap">
+      <div className="product-img-wrap" style={{ borderRadius: 'var(--r-squircle) var(--r-squircle) 0 0' }}>
         <AnimatePresence>
           {showBurst && <HeartBurst x="85%" y="15%" />}
         </AnimatePresence>

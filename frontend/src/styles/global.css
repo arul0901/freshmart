@@ -368,8 +368,23 @@ input, select, textarea { font-family: var(--font); }
 .header-actions {
   display: flex;
   align-items: center;
-  gap: var(--sp-2);
-  flex-shrink: 0;
+  gap: clamp(8px, 2vw, 16px);
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .logo-text { display: none; }
+  .header-actions .btn { padding: 8px 12px; font-size: 0.7rem; }
+  .header-actions .icon-btn { width: 36px !important; height: 36px !important; }
 }
 
 .ha-btn {
@@ -700,7 +715,7 @@ input, select, textarea { font-family: var(--font); }
    ============================================================ */
 .card {
   background: var(--surface);
-  border-radius: var(--r-xl);
+  border-radius: var(--r-squircle);
   border: 1px solid var(--border);
   overflow: hidden;
   transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
@@ -715,7 +730,7 @@ input, select, textarea { font-family: var(--font); }
 .product-card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--r-xl);
+  border-radius: var(--r-squircle);
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), border-color 0.25s var(--ease);
@@ -735,6 +750,9 @@ input, select, textarea { font-family: var(--font); }
   align-items: center;
   justify-content: center;
   padding: clamp(var(--sp-4), 4vw, var(--sp-6));
+  border-radius: var(--r-squircle); /* Critical squircle fix */
+  margin: 12px; /* Slight inset for premium look */
+  overflow: hidden;
 }
 
 .product-info {
@@ -778,10 +796,11 @@ input, select, textarea { font-family: var(--font); }
 }
 
 .discount-badge {
-  position: absolute; top: 12px; left: 12px; z-index: 2; 
-  background: var(--error); color: #fff; padding: 5px 10px; 
-  border-radius: var(--r-full); font-size: 10px; font-weight: 800;
+  position: absolute; top: 20px; left: 20px; z-index: 2; 
+  background: var(--error); color: #fff; padding: 6px 12px; 
+  border-radius: var(--r-sm); font-size: 10px; font-weight: 800;
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+  text-transform: uppercase;
 }
 
 /* ============================================================
@@ -1261,7 +1280,14 @@ input, select, textarea { font-family: var(--font); }
   align-items: center; 
   position: relative; 
   overflow: hidden;
+  color: #fff; /* Force white text by default */
 }
+
+.luxury-banner .section-title { color: #fff; }
+.luxury-banner .section-sub   { color: rgba(255,255,255,0.6); }
+
+.luxury-banner h2 { color: #fff !important; }
+.luxury-banner p  { color: rgba(255,255,255,0.7) !important; }
 
 .luxury-stats {
   display: grid; 

@@ -5,6 +5,7 @@ import ProductCard from '../components/ProductCard'
 import Skeleton from '../components/Skeleton'
 import HeroBanner from '../components/HeroBanner'
 import { useNotif } from '../context/NotifContext'
+import { useAuth } from '../context/AuthContext'
 import { Truck, ShieldCheck, Zap, Star, Apple, Carrot, Milk, Cookie, Coffee, Croissant, Drumstick, Leaf } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Footer from '../components/Footer'
@@ -37,6 +38,7 @@ export default function Home() {
   const [bestSellers, setBestSellers] = useState([])
   const [flashProducts, setFlashProducts] = useState([])
   const [loading, setLoading] = useState(true)
+  const { user } = useAuth()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -90,7 +92,7 @@ export default function Home() {
               <h2 className="section-title">Shop by Category</h2>
               <p className="section-sub">Fresh, curated selections from farm to table</p>
             </div>
-            <button className="btn-primary" onClick={() => navigate('/products')} style={{ borderRadius: '14px', padding: '12px 28px' }}>
+            <button className="btn btn-primary" onClick={() => navigate('/products')} style={{ borderRadius: '14px', padding: '12px 28px' }}>
               View All
             </button>
           </div>
@@ -108,7 +110,7 @@ export default function Home() {
               >
                 <div style={{ 
                   background: c.color, color: 'var(--primary)', width: 90, height: 90, 
-                  borderRadius: '24px', display: 'flex', alignItems: 'center', 
+                  borderRadius: 'var(--r-squircle)', display: 'flex', alignItems: 'center', 
                   justifyContent: 'center', margin: '0 auto 16px', transition: '0.3s', 
                   border: '1px solid var(--primary-100)', boxShadow: 'var(--sh-sm)' 
                 }}>
@@ -132,7 +134,7 @@ export default function Home() {
             {loading ? (
               [...Array(5)].map((_, i) => (
                 <div key={i} style={{ display: 'grid', gap: 16 }}>
-                  <Skeleton height="280px" borderRadius="20px" />
+                  <Skeleton height="280px" borderRadius="var(--r-squircle)" />
                   <Skeleton height="20px" width="70%" />
                   <Skeleton height="15px" width="40%" />
                 </div>
@@ -153,7 +155,7 @@ export default function Home() {
           }} />
           <div className="container" style={{ position: 'relative', zIndex: 10 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 48 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+              <div className="header-actions">
                 <h2 className="section-title" style={{ color: '#fff', marginBottom: 0 }}>Flash Deals</h2>
                 <div style={{ 
                   background: 'var(--accent)', color: 'var(--primary-900)', 
@@ -174,62 +176,6 @@ export default function Home() {
         </section>
       )}
 
-      {/* LUXURY BANNER */}
-      <section className="section">
-        <div className="container">
-          <motion.div 
-            whileInView={{ y: [40, 0], opacity: [0, 1] }} 
-            viewport={{ once: true }}
-            className="luxury-banner"
-          >
-            <div style={{ 
-              position: 'absolute', top: '-10%', right: '-10%', width: '40%', height: '100%', 
-              background: 'var(--primary-500)', filter: 'blur(120px)', opacity: 0.2, borderRadius: '50%' 
-            }} />
-            <div style={{ zIndex: 1, position: 'relative' }}>
-              <div style={{ color: 'var(--accent)', fontWeight: 800, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: 24 }}>
-                Exclusive Membership
-              </div>
-              <h2 style={{ fontSize: 'clamp(2.5rem, 4vw, 4rem)', fontWeight: 800, marginBottom: 24, lineHeight: 1.1, color: '#fff' }}>
-                Smarter Grocery <br/> Shopping is Here
-              </h2>
-              <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '1.2rem', marginBottom: 48, maxWidth: '500px', lineHeight: 1.7 }}>
-                Join our premium community and get unlimited free deliveries, early access to farm picks, and exclusive rewards.
-              </p>
-              <div style={{ display: 'flex', gap: 20 }}>
-                <button className="btn-primary" onClick={() => navigate('/premium')} style={{ background: 'var(--accent)', color: 'var(--primary-900)', padding: '18px 40px', borderRadius: '16px' }}>
-                  Join Now
-                </button>
-                <button className="btn-outline" style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.2)', padding: '18px 40px', borderRadius: '16px', background: 'rgba(255,255,255,0.05)' }}>
-                  Learn More
-                </button>
-              </div>
-            </div>
-              <div className="luxury-stats">
-              {[
-                { icon: <Leaf size={32} />, val: '5k+', lbl: 'Organic Items' },
-                { icon: <Zap size={32} />, val: '10m', lbl: 'Avg Delivery' },
-                { icon: <Star size={32} />, val: '4.9', lbl: 'App Rating' },
-                { icon: <ShieldCheck size={32} />, val: '100%', lbl: 'Fresh Guarantee' }
-              ].map((x, i) => (
-                <motion.div 
-                  key={i} 
-                  whileHover={{ y: -8, background: 'rgba(255,255,255,0.08)' }} 
-                  style={{ 
-                    background: 'rgba(255,255,255,0.04)', padding: '32px', borderRadius: '24px', 
-                    textAlign: 'center', border: '1px solid rgba(255,255,255,0.08)',
-                    backdropFilter: 'blur(10px)'
-                  }}
-                >
-                  <div style={{ color: 'var(--accent)', marginBottom: 16, display: 'flex', justifyContent: 'center' }}>{x.icon}</div>
-                  <div style={{ fontSize: '1.75rem', fontWeight: 800, color: '#fff' }}>{x.val}</div>
-                  <div style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', fontWeight: 700, textTransform: 'uppercase', marginTop: 4 }}>{x.lbl}</div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
 
       <Footer />
     </main>
