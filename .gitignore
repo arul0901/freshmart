@@ -42,3 +42,19 @@ Thumbs.db
 # Custom Exclusions
 tmp/
 freshmart.html
+
+# Debug and Test Files
+debug_*.js
+test_*.js
+verify_*.js
+scratch/
+
+# SQL Migration Files (keep in separate repo)
+*.sql
+
+# Temporary Password Reset File
+password-reset.js
+
+# Internal Documentation
+*_GUIDE.md
+*_REPORT.md
