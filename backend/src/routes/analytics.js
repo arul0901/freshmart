@@ -3,16 +3,17 @@ const supabase = require('../supabase');
 const router = express.Router();
 
 router.get('/summary', async (req, res) => {
-  const { data: orders } = await supabase.from('orders').select('*');
-  const { data: customers } = await supabase.from('customers').select('*');
-  const { data: products } = await supabase.from('products').select('*');
+  // Select only the columns needed for analytics to avoid cache errors
+  const { data: orders } = await supabase.from('orders').select('date, total_amount');
+  const { data: customers } = await supabase.from('customers').select('id');
+  const { data: products } = await supabase.from('products').select('id, stock');
 
   const safeOrders = orders || [];
   const safeProducts = products || [];
   
   const today = new Date().toISOString().split('T')[0];
-  const todayOrders = safeOrders.filter(o => o.date === today);
-  const todayRevenue = todayOrders.reduce((sum, o) => sum + o.amount, 0);
+  const todayOrders = safeOrders.filter(o => o.date?.split('T')[0] === today);
+  const todayRevenue = todayOrders.reduce((sum, o) => sum + parseFloat(o.total_amount || 0), 0);
   const lowStockCount = safeProducts.filter(p => p.stock < 50).length;
 
   const revenueChart = [

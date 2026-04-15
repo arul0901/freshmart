@@ -12,8 +12,9 @@ import Coupons from './pages/Coupons'
 import Analytics from './pages/Analytics'
 import FlashDeals from './pages/FlashDeals'
 import Settings from './pages/Settings'
+import AuditLogs from './pages/AuditLogs'
 import AdminLogin from './pages/AdminLogin'
-import { Menu, X, LayoutDashboard, ShoppingCart, Package, Users, Factory, Zap, Tag, BarChart3, Settings as SettingsIcon, LogOut, Bell } from 'lucide-react'
+import { Menu, X, LayoutDashboard, ShoppingCart, Package, Users, Factory, Zap, Tag, BarChart3, Settings as SettingsIcon, LogOut, Bell, ShieldCheck } from 'lucide-react'
 
 function Sidebar({ open, setOpen }) {
   const { pathname } = useLocation()
@@ -36,6 +37,7 @@ function Sidebar({ open, setOpen }) {
           <Link to="/products" onClick={() => setOpen(false)} className={`admin-nav-item ${pathname.includes('/products') ? 'active' : ''}`}><span className="icon"><ShoppingCart size={18} /></span>Products</Link>
           <Link to="/orders" onClick={() => setOpen(false)} className={`admin-nav-item ${pathname.includes('/orders') ? 'active' : ''}`}><span className="icon"><Package size={18} /></span>Orders</Link>
           <Link to="/customers" onClick={() => setOpen(false)} className={`admin-nav-item ${pathname.includes('/customers') ? 'active' : ''}`}><span className="icon"><Users size={18} /></span>Customers</Link>
+          <Link to="/logs" onClick={() => setOpen(false)} className={`admin-nav-item ${pathname.includes('/logs') ? 'active' : ''}`}><span className="icon"><ShieldCheck size={18} /></span>System Audit</Link>
           
           <div className="admin-nav-section" style={{ marginTop: 20 }}>Store Management</div>
           <Link to="/inventory" onClick={() => setOpen(false)} className={`admin-nav-item ${pathname.includes('/inventory') ? 'active' : ''}`}><span className="icon"><Factory size={18} /></span>Inventory</Link>
@@ -68,7 +70,8 @@ function Layout({ children }) {
     '/flash-deals': 'Flash Sale Management',
     '/coupons': 'Discount Coupons',
     '/analytics': 'Business Analytics',
-    '/settings': 'Store Settings'
+    '/settings': 'Store Settings',
+    '/logs': 'Technical Audit Logs'
   }
 
   return (
@@ -83,14 +86,13 @@ function Layout({ children }) {
             <h1>{titles[pathname] || 'Admin Panel'}</h1>
           </div>
           <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
-            <span style={{ fontSize: '1.2rem', cursor: 'pointer' }}><Bell size={20} /></span>
             <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-              <div style={{ width: 36, height: 36, borderRadius: '99px', background: 'var(--sage)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 600 }}>
-                {admin?.name?.[0] || 'A'}
+              <div style={{ width: 36, height: 36, borderRadius: '99px', background: 'var(--sage)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '0.9rem' }}>
+                {(admin?.user_metadata?.full_name || admin?.email || 'A')[0].toUpperCase()}
               </div>
               <div className="hide-mob">
-                <div style={{ fontSize: '.85rem', fontWeight: 700 }}>{admin?.name || 'Admin'}</div>
-                <div style={{ fontSize: '.72rem', color: 'var(--muted)' }}>Store Manager</div>
+                <div style={{ fontSize: '.85rem', fontWeight: 700, color: 'var(--ink)' }}>{admin?.user_metadata?.full_name || 'Admin'}</div>
+                <div style={{ fontSize: '.72rem', color: 'var(--muted)' }}>{admin?.email}</div>
               </div>
             </div>
           </div>
@@ -119,6 +121,7 @@ function AdminApp() {
               <Route path="/coupons" element={<Coupons />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/settings" element={<Settings />} />
+              <Route path="/logs" element={<AuditLogs />} />
             </Routes>
           </Layout>
         } />
