@@ -104,15 +104,30 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    console.log('🔍 [LOGIN FORM] Form submitted');
+    console.log('🔍 [LOGIN FORM] Form data:', { email, passwordLength: password?.length || 0 });
+    
+    // Basic validation
+    if (!email.trim() || !password.trim()) {
+      console.log('🔍 [LOGIN FORM] Validation failed - empty fields');
+      showNotif('Please fill in both email and password', 'error');
+      return;
+    }
+    
     setLoading(true)
     try {
+      console.log('🔍 [LOGIN FORM] Calling loginWithEmail...');
       const { error } = await loginWithEmail(email, password)
+      console.log('🔍 [LOGIN FORM] Login response:', { error: error?.message });
+      
       if (error) {
         showNotif(error.message, 'error')
       } else {
+        console.log('🔍 [LOGIN FORM] Login successful - showing success notification');
         showNotif('Welcome back!', 'success')
       }
     } catch (err) {
+      console.error('🔍 [LOGIN FORM] Unexpected error:', err);
       showNotif('An unexpected error occurred', 'error')
     } finally {
       setLoading(false)

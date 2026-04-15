@@ -94,15 +94,36 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    console.log('🔍 [SIGNUP FORM] Form submitted');
+    console.log('🔍 [SIGNUP FORM] Form data:', { name, email, passwordLength: password?.length || 0 });
+    
+    // Basic validation
+    if (!name.trim() || !email.trim() || !password.trim()) {
+      console.log('🔍 [SIGNUP FORM] Validation failed - empty fields');
+      showNotif('Please fill in all fields', 'error');
+      return;
+    }
+    
+    if (password.length < 8) {
+      console.log('🔍 [SIGNUP FORM] Password too short');
+      showNotif('Password must be at least 8 characters', 'error');
+      return;
+    }
+    
     setLoading(true)
     try {
+      console.log('🔍 [SIGNUP FORM] Calling signupWithEmail...');
       const { error } = await signupWithEmail(email, password, name)
+      console.log('🔍 [SIGNUP FORM] Signup response:', { error: error?.message });
+      
       if (error) {
         showNotif(error.message, 'error')
       } else {
+        console.log('🔍 [SIGNUP FORM] Signup successful - showing success notification');
         showNotif('Check your email for verification link!', 'success')
       }
     } catch (err) {
+      console.error('🔍 [SIGNUP FORM] Unexpected error:', err);
       showNotif('Failed to create account', 'error')
     } finally {
       setLoading(false)
